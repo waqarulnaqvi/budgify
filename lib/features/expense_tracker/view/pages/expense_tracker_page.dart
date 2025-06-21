@@ -137,7 +137,8 @@ class _ExpenseTrackerPageState extends ConsumerState<ExpenseTrackerPage> {
         width: w,
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-            color:  Color.fromARGB(255, 184, 241, 240).withValues(alpha: 0.3),
+            color:  AppColors.skyBlueLight
+            ,
             // gradient: LinearGradient(
             //     colors: AppGradients.greenGradient,
             //     begin: Alignment.topLeft,

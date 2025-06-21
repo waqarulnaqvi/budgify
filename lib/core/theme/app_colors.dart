@@ -4,7 +4,8 @@ class AppColors{
   static const Color themeLight= Color.fromRGBO(37, 146, 166, 1);
   // static const Color themeLight=  Color(0xff49ad4d);
   // static const Color themeLight=  Color.fromARGB(255, 78, 64, 204);
-  static const Color skyBlueLight= Color.fromRGBO(37, 146, 166, 1);
+  // static const Color skyBlueLight= Color.fromRGBO(37, 146, 166, 1);
+  static const Color skyBlueLight= Color.fromARGB(255, 234, 251, 250);
   // static const Color themeLightLighter = Color.fromRGBO(92, 182, 197, 1);
   static const Color darkBlue = Color.fromRGBO(38, 18, 125, 1);
   // static const Color themeDark = Color(0xff66af66);

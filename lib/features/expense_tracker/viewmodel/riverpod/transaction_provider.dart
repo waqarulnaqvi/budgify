@@ -5,8 +5,10 @@ import '../../../../shared/view/widgets/global_widgets.dart';
 import '../../model/tracker_model.dart';
 import '../../model/transaction_summary.dart';
 import '../../utils/expense_type.dart';
+import '../../utils/filter_type.dart';
 import '../../utils/transaction_type.dart';
 import 'expense_tracker_notifier.dart';
+import 'filter_provider.dart';
 
 // final transactionProvider =
 // StateProvider<String>((ref) => TransactionType.allTransactions.value);
@@ -69,6 +71,7 @@ final filteredTransactionProvider = Provider<TransactionSummary>((ref) {
         }
       }
 
+      ///Based on the selected transaction type, filter the data
       final allData = ref.watch(expenseTrackerProvider).trackers;
       List<TrackerModel> filteredList = [];
 
@@ -114,6 +117,23 @@ final filteredTransactionProvider = Provider<TransactionSummary>((ref) {
       } else {
         filteredList = allData;
       }
+
+
+      ///Based on Filter Provider - Filter the data like date wise and category wise
+      final selectedFilter = ref.watch(filterProvider);
+
+      if(selectedFilter == FilterType.dateWise.stringValue) {
+        // filteredList = filteredList.where((tracker) {
+        //   DateTime trackerDate = parseDate(tracker.date);
+        //   return trackerDate.isAfter(wProvider.startDateFilter!.subtract(Duration(days: 1))) &&
+        //       trackerDate.isBefore(wProvider.endDateFilter!.add(Duration(days: 1)));
+        // }).toList();
+      } else //selectedFilter == FilterType.categoryWise.stringValue
+        {
+        // filteredList = filteredList.where((tracker) =>
+        //     tracker.trackerCategory == wProvider.selectedCategory).toList();
+      }
+
 
       return TransactionSummary(
         trackerModel: filteredList,
