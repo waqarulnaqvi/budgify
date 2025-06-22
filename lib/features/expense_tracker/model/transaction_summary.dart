@@ -1,18 +1,18 @@
 import 'package:budgify/features/expense_tracker/model/tracker_model.dart';
 
 class TransactionSummary {
-  final List<TrackerModel> trackerModel;
+  final List<FilteredExpModel> filteredExpModel;
   final TransactionModel transactionModel;
 
   TransactionSummary({
-    required this.trackerModel,
+    required this.filteredExpModel,
     required this.transactionModel,
   });
 
   // Add this static method
   static TransactionSummary empty() {
     return TransactionSummary(
-      trackerModel: [],
+      filteredExpModel: [],
       transactionModel: TransactionModel(
         income: '0.00',
         expense: '0.00',

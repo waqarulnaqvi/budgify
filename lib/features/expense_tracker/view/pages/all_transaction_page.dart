@@ -8,6 +8,7 @@ import '../../../../shared/view/widgets/currency_picker.dart';
 import '../../../../shared/view/widgets/date_filter.dart';
 import '../../model/tracker_model.dart';
 import '../../utils/expense_type.dart';
+import '../widgets/buttons/filter_button.dart';
 import '../widgets/filters/transaction_filter.dart';
 import '../widgets/reusable_floating_action_button.dart';
 
@@ -28,7 +29,13 @@ class AllTransactionPage extends StatelessWidget {
             spacerH(),
             CurrencyPicker(),
             spacerH(10),
-            TransactionFilter(),
+            Row(
+              children: [
+                Expanded(flex: 3, child: TransactionFilter(),),
+                spacerW(10),
+                Expanded(child: FilterButton())
+              ],
+            ),
             spacerH(10),
             DateFilter(),
             spacerH(10),

@@ -53,13 +53,13 @@ class ReusableInfo extends ConsumerWidget {
             : isScrollable
                 ? Expanded(
                     child: ReusableListView(
-                      trackerList: trackerList,
+                      filteredExpModel: trackerList,
                       currency: currency,
                       isScrollable: isScrollable,
                     ),
                   )
                 : ReusableListView(
-                    trackerList: trackerList,
+                    filteredExpModel: trackerList,
                     currency: currency,
                     isScrollable: isScrollable,
                   );

@@ -1,7 +1,7 @@
 import 'package:budgify/features/expense_tracker/model/tracker_model.dart';
 
 class TaxSummary {
-  final List<TrackerModel> trackerModel;
+  final List<FilteredExpModel> trackerModel;
   final TaxModel taxModel;
 
   const TaxSummary({

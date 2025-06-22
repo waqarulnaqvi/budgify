@@ -6,6 +6,7 @@ class StaticAssets {
   static const String userProfile ="assets/icons/profile.png";
   static const String crossCloseIcon = 'assets/icons/cross_close_icon.png';
   static const String budgetFlowHomeIcon = 'assets/icons/budget_flow_home_icon.png';
+  static const String calenderIcon = 'assets/icons/calendar_icon.png';
 
   //All apps Icons
   static const String brainBoosterIcon =
