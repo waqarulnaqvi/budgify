@@ -10,12 +10,12 @@ class DateFilter extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final wProvider = ref.watch(dateProvider);
+    final wProvider = ref.watch(dateProvider).value;
     return Row(
       children: [
         Expanded(
             child: ShowDate(
-          date: wProvider.startDateFilter == wProvider.endDateFilter
+          date: wProvider!.startDateFilter == wProvider.endDateFilter
               ? "Start Date"
               : wProvider.startDateFilter!,
           startDate: wProvider.startDateFilter ?? wProvider.endDateFilter!,

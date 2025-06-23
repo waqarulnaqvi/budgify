@@ -124,8 +124,8 @@ class ReusableListView extends ConsumerWidget {
                   double netAmountAfterTax = 0;
 
                   bool isTax = tl.trackerCategory == ExpenseType.tax.intValue;
-                  bool isExpense =
-                      tl.trackerCategory == ExpenseType.expense.intValue;
+                  // bool isExpense =
+                  //     tl.trackerCategory == ExpenseType.expense.intValue;
                   bool isIncome =
                       tl.trackerCategory == ExpenseType.income.intValue;
                   bool isInvestment =
@@ -134,7 +134,9 @@ class ReusableListView extends ConsumerWidget {
                   if (isInvestment) {
                     totalReturns = tl.amount! * (tl.percentage / 100);
                     currentAmount = tl.amount! + totalReturns;
-                  } else if (isTax) {
+                  }
+
+                  else if (isTax) {
                     totalTax = tl.amount! * (tl.percentage / 100);
                     netAmountAfterTax = tl.amount! - totalTax;
                   }

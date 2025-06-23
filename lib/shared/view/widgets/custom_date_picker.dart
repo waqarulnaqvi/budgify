@@ -92,7 +92,7 @@ class CustomDateRangePickerState extends ConsumerState<CustomDateRangePicker>
 
   @override
   Widget build(BuildContext context) {
-    final rProvider = ref.read(dateProvider.notifier);
+    // final rProvider = ref.read(dateProvider.notifier);
     return Center(
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -236,17 +236,23 @@ class CustomDateRangePickerState extends ConsumerState<CustomDateRangePicker>
                                               Radius.circular(24.0)),
                                         ),
                                       ),
-                                      onPressed: () {
+                                      onPressed: () async {
                                         try {
-                                          rProvider.state = rProvider.state
-                                              .copyWith(
-                                                  startDateFilter: formatDate(
-                                                      DateTime.now()),
-                                                  // startDateFilter: formatDate(DateTime.now().subtract(Duration(days: 30))),
-                                                  endDateFilter: formatDate(
-                                                      DateTime.now()));
+                                          await ref
+                                              .read(dateProvider.notifier)
+                                              .resetFilter();
+
+                                          // rProvider.state = rProvider.state
+                                          //     .copyWith(
+                                          //         startDateFilter: formatDate(
+                                          //             DateTime.now()),
+                                          //         // startDateFilter: formatDate(DateTime.now().subtract(Duration(days: 30))),
+                                          //         endDateFilter: formatDate(
+                                          //             DateTime.now()));
                                         } catch (_) {}
-                                        Navigator.pop(context);
+                                        if(context.mounted) {
+                                          Navigator.pop(context);
+                                        }
                                       },
                                       child: Center(
                                         child: Text(
@@ -319,19 +325,25 @@ class CustomDateRangePickerState extends ConsumerState<CustomDateRangePicker>
                                               Radius.circular(24.0)),
                                         ),
                                       ),
-                                      onPressed: () {
+                                      onPressed: () async {
                                         try {
-                                          rProvider.state =
-                                              rProvider.state.copyWith(
-                                            startDateFilter:
-                                                formatDate(startDate!),
-                                            endDateFilter: formatDate(endDate!),
-                                          );
+                                          await ref
+                                              .read(dateProvider.notifier).setBothDateFilter(startDate: formatDate(startDate!), endDate: formatDate(endDate!));
+
+                                          // rProvider.state =
+                                          //     rProvider.state.copyWith(
+                                          //   startDateFilter:
+                                          //       formatDate(startDate!),
+                                          //   endDateFilter: formatDate(endDate!),
+                                          // );
 
                                           // print("Start Date: ${rProvider.state.startDateFilter}");
                                           // print("End Date: ${rProvider.state.endDateFilter}");
 
-                                          Navigator.pop(context);
+                                          if(context.mounted) {
+                                            Navigator.pop(context);
+                                          }
+
                                         } catch (_) {}
                                       },
                                       child: Center(

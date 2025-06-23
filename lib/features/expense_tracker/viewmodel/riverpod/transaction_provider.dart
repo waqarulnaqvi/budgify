@@ -33,6 +33,8 @@ class TransactionAsyncNotifier extends AsyncNotifier<String> {
     await prefsHelper.setStringValue(PrefsKeys.allFilter, newValue);
     state = AsyncValue.data(newValue);
   }
+
+
 }
 
 final transactionProvider =

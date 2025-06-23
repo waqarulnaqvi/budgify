@@ -3,7 +3,6 @@ import 'package:budgify/features/expense_tracker/model/card_model.dart';
 import 'package:currency_picker/currency_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../../core/theme/app_gradients.dart';
 import '../../../../../shared/view/widgets/global_widgets.dart';
 import '../../../model/currency_model.dart';
 import '../../../viewmodel/riverpod/currency_provider.dart';
@@ -31,7 +30,7 @@ class ReusableCardWidget extends ConsumerWidget {
     return isTaxPage
         ? (value > 0 ? AppColors.youtubeRed : Colors.black)
         : (value > 0
-            ? AppColors.themeLight
+            ? Colors.green
             : (value < 0 ?
              AppColors.youtubeRed:
              Colors.black));

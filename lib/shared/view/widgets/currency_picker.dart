@@ -1,7 +1,6 @@
 import 'package:currency_picker/currency_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import '../../../core/local/hive_database.dart';
 import '../../../core/theme/app_styles.dart';
 import '../../../features/expense_tracker/model/currency_model.dart';
 import '../../../features/expense_tracker/viewmodel/riverpod/currency_provider.dart';
@@ -20,9 +19,9 @@ class CurrencyPicker extends ConsumerWidget {
 
     return Container(
       width: w,
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.symmetric(vertical: 10).copyWith(left: 15,right: 10),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(20),
         color: theme.surface,
         border: Border.all(
           width: 1,
