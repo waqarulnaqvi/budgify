@@ -71,7 +71,7 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
         ? expenseData.trackerCategory.tax * -1
         : expenseData.trackerCategory.tax;
 
-    final currencySymbol = ref.watch(currencyProvider).symbol;
+    final currencySymbol = ref.watch(currencyProvider).value?.symbol ?? '₹';
     final theme = Theme.of(context).colorScheme;
     final double w = MediaQuery.of(context).size.width;
 

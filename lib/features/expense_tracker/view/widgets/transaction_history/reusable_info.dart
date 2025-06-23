@@ -23,7 +23,7 @@ class ReusableInfo extends ConsumerWidget {
         ? ref.watch(filteredTaxProvider).trackerModel
         : ref.watch(filteredInvestmentProvider).trackerModel;
     final isLoading = ref.watch(expenseTrackerProviderOriginal.notifier).isLoading;
-    final currency = ref.watch(currencyProvider).symbol;
+    final currency = ref.watch(currencyProvider).value?.symbol ?? '₹';
     // final rProvider = isTaxPage
     //     ? ref.read(taxProvider.notifier)
     //     : ref.read(investmentProvider.notifier);

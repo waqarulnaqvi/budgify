@@ -13,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_icon_snackbar/flutter_icon_snackbar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../model/currency_model.dart';
 import '../../model/tracker_model.dart';
 import '../../utils/expense_type.dart';
 import '../../viewmodel/riverpod/currency_provider.dart';
@@ -167,7 +166,7 @@ class _ExpenseManagementPageState extends ConsumerState<ExpenseManagementPage> {
   Widget build(BuildContext context) {
     final selectedValue = ref.watch(selectedValueProvider);
     final rProvider = ref.read(currencyProvider.notifier);
-    final currency = ref.watch(currencyProvider).symbol;
+    final currency = ref.watch(currencyProvider).value?.symbol ?? '₹';
     final dateRef = ref.watch(dateProvider).value;
     final isTaxPage = selectedValue == ExpenseType.tax.value;
     final isShowReturn = selectedValue == ExpenseType.investment.value ||
@@ -263,8 +262,14 @@ class _ExpenseManagementPageState extends ConsumerState<ExpenseManagementPage> {
                         showFlag: true,
                         showCurrencyName: true,
                         showCurrencyCode: true,
-                        onSelect: (Currency currency) {
-                          rProvider.state = CurrencyModel.fromJson(currency);
+                        onSelect: (Currency currency) async {
+                          await rProvider.currencyFilter(
+                            name: currency.name,
+                            code: currency.code,
+                            symbol: currency.symbol,
+                          );
+
+                          // rProvider.state = CurrencyModel.fromJson(currency);
                           // print(currency.name);
                         },
                       );

@@ -23,7 +23,8 @@ class TransactionInfo extends ConsumerWidget {
         ref.watch(filteredTransactionProvider).filteredExpModel;
     final isLoading =
         ref.watch(expenseTrackerProviderOriginal.notifier).isLoading;
-    final currency = ref.watch(currencyProvider).symbol;
+    final currency = ref.watch(currencyProvider).value?.symbol ?? '₹';
+
     return isLoading
         ? SizedBox(
             width: w,

@@ -14,7 +14,7 @@ class _ExpenseTrackerPageState extends ConsumerState<ExpenseTrackerPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(expenseTrackerProviderOriginal.notifier).init();
     });
-    //   Future.microtask(() {
+        //   Future.microtask(() {
     //     ref.read(expenseTrackerProvider.notifier).init();
     //   });
   }
@@ -29,9 +29,14 @@ class _ExpenseTrackerPageState extends ConsumerState<ExpenseTrackerPage> {
       showFlag: true,
       showCurrencyName: true,
       showCurrencyCode: true,
-      onSelect: (Currency currency) {
-        ref.read(currencyProvider.notifier).state =
-            CurrencyModel.fromJson(currency);
+      onSelect: (Currency currency) async {
+        await ref.read(currencyProvider.notifier).currencyFilter(
+              name: currency.name,
+              code: currency.code,
+              symbol: currency.symbol,
+            );
+        // ref.read(currencyProvider.notifier).state =
+        //     CurrencyModel.fromJson(currency);
       },
     );
   }
@@ -39,7 +44,7 @@ class _ExpenseTrackerPageState extends ConsumerState<ExpenseTrackerPage> {
   @override
   Widget build(BuildContext context) {
     final double w = MediaQuery.of(context).size.width;
-    final currency = ref.watch(currencyProvider).symbol;
+    final currency = ref.watch(currencyProvider).value?.symbol ?? '₹';
     final theme = Theme.of(context).colorScheme;
     return Scaffold(
         body: SingleChildScrollView(
@@ -137,12 +142,7 @@ class _ExpenseTrackerPageState extends ConsumerState<ExpenseTrackerPage> {
         width: w,
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-            color:  AppColors.skyBlueLight
-            ,
-            // gradient: LinearGradient(
-            //     colors: AppGradients.greenGradient,
-            //     begin: Alignment.topLeft,
-            //     end: Alignment.bottomRight),
+            color:  AppColors.skyBlueLight,
             borderRadius: BorderRadius.circular(15)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

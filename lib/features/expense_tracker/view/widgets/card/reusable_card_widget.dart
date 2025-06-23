@@ -4,7 +4,6 @@ import 'package:currency_picker/currency_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../shared/view/widgets/global_widgets.dart';
-import '../../../model/currency_model.dart';
 import '../../../viewmodel/riverpod/currency_provider.dart';
 import '../reusable_card_details.dart';
 
@@ -53,14 +52,22 @@ class ReusableCardWidget extends ConsumerWidget {
         showFlag: true,
         showCurrencyName: true,
         showCurrencyCode: true,
-        onSelect: (Currency currency) {
-          ref.read(currencyProvider.notifier).state =
-              CurrencyModel.fromJson(currency);
+        onSelect: (Currency currency) async {
+
+          await ref.read(currencyProvider.notifier).currencyFilter(
+                name: currency.name,
+                code: currency.code,
+                symbol: currency.symbol,
+              );
+
+
+          // ref.read(currencyProvider.notifier).state =
+          //     CurrencyModel.fromJson(currency);
         },
       );
     }
 
-    final currency = ref.watch(currencyProvider).symbol;
+    final currency = ref.watch(currencyProvider).value?.symbol ?? '₹';
     final double w = MediaQuery.of(context).size.width;
     final double section1Value = getSectionValue(section1.value);
     final double section2Value = getSectionValue(section2.value);
