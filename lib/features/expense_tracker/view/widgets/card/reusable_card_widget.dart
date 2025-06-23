@@ -59,8 +59,6 @@ class ReusableCardWidget extends ConsumerWidget {
                 code: currency.code,
                 symbol: currency.symbol,
               );
-
-
           // ref.read(currencyProvider.notifier).state =
           //     CurrencyModel.fromJson(currency);
         },
