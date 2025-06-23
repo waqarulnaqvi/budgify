@@ -11,14 +11,6 @@ import '../../utils/transaction_type.dart';
 import 'expense_tracker_notifier.dart';
 import 'filter_provider.dart';
 
-// final transactionProvider =
-// StateProvider<String>((ref) => TransactionType.allTransactions.value);
-
-// final transactionProvider = FutureProvider<String>((ref) async {
-//   final prefsHelper = PrefsHelper();
-//   String? savedFilter = await prefsHelper.getStringValue(PrefsKeys.allFilter);
-//   return savedFilter ?? TransactionType.allTransactions.value;
-// });
 
 class TransactionAsyncNotifier extends AsyncNotifier<String> {
   final prefsHelper = PrefsHelper();
@@ -33,8 +25,6 @@ class TransactionAsyncNotifier extends AsyncNotifier<String> {
     await prefsHelper.setStringValue(PrefsKeys.allFilter, newValue);
     state = AsyncValue.data(newValue);
   }
-
-
 }
 
 final transactionProvider =
@@ -48,7 +38,9 @@ final filteredTransactionProvider = Provider<TransactionSummary>((ref) {
     data: (transactionTypeValue) {
       final wProvider = ref.watch(expenseTrackerProvider).trackerCategory;
 
-      double totalBalance = 0.0, totalIncome = 0.0, totalExpense = 0.0;
+      double totalBalance = 0.0,
+          totalIncome = wProvider.totalIncome,
+          totalExpense = wProvider.totalExpense;
       final isExcludeInvestmentAndTax = transactionTypeValue ==
           TransactionType.excludingInvestmentAndTax.value;
 
@@ -59,15 +51,20 @@ final filteredTransactionProvider = Provider<TransactionSummary>((ref) {
       } else {
         totalBalance = wProvider.totalIncome -
             wProvider.totalExpense +
-            wProvider.investment -
+            wProvider.investment +
             wProvider.tax;
-        if (wProvider.investment > 0) {
-          totalIncome += wProvider.investment + wProvider.totalIncome;
-          totalExpense += wProvider.totalExpense - wProvider.tax;
-        } else {
-          totalIncome += wProvider.totalIncome;
-          totalExpense +=
-              wProvider.totalExpense - wProvider.tax - wProvider.investment;
+
+        /// Investment and tax are considered as income and expense respectively
+        if (wProvider.tax >= 0) {
+          totalIncome += wProvider.tax;
+        } else if (wProvider.tax < 0) {
+          totalExpense -= wProvider.tax;
+        }
+
+        if (wProvider.investment >= 0) {
+          totalIncome += wProvider.investment;
+        } else if (wProvider.investment < 0) {
+          totalExpense -= wProvider.investment;
         }
       }
 
@@ -143,26 +140,28 @@ final filteredTransactionProvider = Provider<TransactionSummary>((ref) {
               allExp.add(eachExp);
               if (eachExp.trackerCategory == ExpenseType.expense.intValue) {
                 bal -= eachExp.amount!;
-              } else if (eachExp.trackerCategory == ExpenseType.income.intValue) {
+              } else if (eachExp.trackerCategory ==
+                  ExpenseType.income.intValue) {
                 bal += eachExp.amount!;
-              } else if (eachExp.trackerCategory == ExpenseType.investment.intValue) {
+              } else if (eachExp.trackerCategory ==
+                  ExpenseType.investment.intValue) {
                 /// Representing investment returns
-                if(eachExp.percentage >=0)
-                {
-                  bal += eachExp.amount!;
-                }
-                else{
-                  bal -= eachExp.amount!;
+                if (eachExp.percentage >= 0) {
+                  bal += eachExp.amount! +
+                      (eachExp.amount! * (eachExp.percentage / 100));
+                } else {
+                  bal += eachExp.amount! -
+                      (eachExp.amount! * (eachExp.percentage / 100));
                 }
               } else {
-                bal -= eachExp.amount!;
+                bal += eachExp.amount! -
+                    (eachExp.amount! * (eachExp.percentage / 100));
               }
             }
           }
 
           if (allExp.isNotEmpty) {
-            filteredExpenses.add(
-                FilteredExpModel(
+            filteredExpenses.add(FilteredExpModel(
               title: formatDate(eachDate),
               bal: bal,
               allExp: allExp,
@@ -199,9 +198,7 @@ final filteredTransactionProvider = Provider<TransactionSummary>((ref) {
             ));
           }
         }
-
       }
-
 
       return TransactionSummary(
         filteredExpModel: filteredExpenses,
@@ -219,3 +216,13 @@ final filteredTransactionProvider = Provider<TransactionSummary>((ref) {
     },
   );
 });
+
+
+// final transactionProvider =
+// StateProvider<String>((ref) => TransactionType.allTransactions.value);
+
+// final transactionProvider = FutureProvider<String>((ref) async {
+//   final prefsHelper = PrefsHelper();
+//   String? savedFilter = await prefsHelper.getStringValue(PrefsKeys.allFilter);
+//   return savedFilter ?? TransactionType.allTransactions.value;
+// });

@@ -89,6 +89,11 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
                     child: CurrencyPicker(),
                   ),
                   spacerH(),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    child: DateFilter(),
+                  ),
+                  spacerH(),
                   (expenseData.trackerCategory.investment != 0 ||
                           expenseData.trackerCategory.tax != 0 ||
                           expenseData.trackerCategory.totalIncome != 0 ||
@@ -120,7 +125,7 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
 
           Positioned(
               bottom: 0,
-              child: Center(child: BannerAdWidget())),
+              child: Padding(padding: const EdgeInsets.symmetric(horizontal: 20), child: BannerAdWidget())),
         ],
       ),
     );
@@ -139,11 +144,6 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
       required ColorScheme theme}) {
     return Column(
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.0),
-          child: DateFilter(),
-        ),
-        spacerH(),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Material(

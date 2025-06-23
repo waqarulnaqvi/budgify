@@ -121,15 +121,16 @@ final filteredTaxProvider = Provider<TaxSummary>((ref) {
               } else if (eachExp.trackerCategory ==
                   ExpenseType.investment.intValue) {
                 /// Representing investment returns
-                if(eachExp.percentage >=0)
-                {
-                  bal += eachExp.amount!;
-                }
-                else{
-                  bal -= eachExp.amount!;
+                if (eachExp.percentage >= 0) {
+                  bal += eachExp.amount! +
+                      (eachExp.amount! * (eachExp.percentage / 100));
+                } else {
+                  bal += eachExp.amount! -
+                      (eachExp.amount! * (eachExp.percentage / 100));
                 }
               } else {
-                bal -= eachExp.amount!;
+                bal += eachExp.amount! -
+                    (eachExp.amount! * (eachExp.percentage / 100));
               }
             }
           }

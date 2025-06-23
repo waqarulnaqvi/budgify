@@ -60,3 +60,66 @@ class TransactionInfo extends ConsumerWidget {
                   );
   }
 }
+
+
+//  @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     final double w = MediaQuery.of(context).size.width;
+//     final double h = MediaQuery.of(context).size.height;
+//     final filteredExpModel =
+//         ref.watch(filteredTransactionProvider).filteredExpModel;
+//     final state = ref.watch(expenseTrackerProviderOriginal.notifier);
+//     final currency = ref.watch(currencyProvider).symbol;
+//
+//     print("Current state of ExpenseTracker: ${state}");
+//     if (state is ExpenseTrackerLoadingState) {
+//       return SizedBox(
+//         width: w,
+//         height: isScrollable ? h - 200 : 250,
+//         child: const Center(
+//           child: CircularProgressIndicator(),
+//         ),
+//       );
+//     }
+//
+//     if (filteredExpModel.isEmpty) {
+//       return SizedBox(
+//         width: w,
+//         height: isScrollable ? h * 0.5 : 250,
+//         child: Center(
+//           child: Text(
+//             'No transactions found',
+//             style: AppStyles.descriptionPrimary(context: context),
+//           ),
+//         ),
+//       );
+//     }
+//
+//
+//     return filteredExpModel.isEmpty
+//         ? SizedBox(
+//       width: w,
+//       height: isScrollable ? h * 0.5 : 250,
+//       child: Center(
+//         child: Text(
+//           'No transactions found',
+//           style: AppStyles.descriptionPrimary(
+//             context: context,
+//           ),
+//         ),
+//       ),
+//     )
+//         : isScrollable
+//         ? Expanded(
+//       child: ReusableListView(
+//         filteredExpModel: filteredExpModel,
+//         currency: currency,
+//         isScrollable: isScrollable,
+//       ),
+//     )
+//         : ReusableListView(
+//       filteredExpModel: filteredExpModel,
+//       currency: currency,
+//       isScrollable: isScrollable,
+//     );
+//   }

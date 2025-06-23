@@ -1,12 +1,12 @@
 class DateModel {
-  final String? startDateFilter;
-  final String? endDateFilter;
-  final String? selectedDate;
+  final String startDateFilter;
+  final String endDateFilter;
+  final String selectedDate;
 
   DateModel({
-    this.startDateFilter,
-    this.endDateFilter,
-    this.selectedDate,
+    required this.startDateFilter,
+    required this.endDateFilter,
+    required this.selectedDate,
   });
 
   DateModel copyWith({

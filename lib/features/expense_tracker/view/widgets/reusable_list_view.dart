@@ -95,7 +95,7 @@ class ReusableListView extends ConsumerWidget {
                           child: InkWell(
                         // onTap: showCurrencyPickerDialog,
                         child: Text(
-                          "$currency${balance.abs()}",
+                          "$currency${balance.abs().toStringAsFixed(2)}",
                           style: AppStyles.headingPrimary(
                               context: context, fontSize: 17, color: color),
                         ),
@@ -336,7 +336,7 @@ class ReusableListView extends ConsumerWidget {
                                                     context: context,
                                                     fontSize: 14,
                                                     color: isTax
-                                                        ? colors[0]
+                                                        ? netAmountAfterTax >0?Colors.green :Colors.red
                                                         : totalReturns >= 0
                                                             ? Colors.green
                                                             : Colors.red,

@@ -67,7 +67,10 @@ class ReusableCardWidget extends ConsumerWidget {
     final double section3Value = getSectionValue(section3.value);
     final double section4Value = getSectionValue(section4.value);
     final Color section1Color =
-        getSectionColor(section3Value);
+        section1Value > 0
+            ? Colors.green
+            : (section1Value < 0 ? Colors.red : Colors.black);
+
     // final Color section2Color = getSectionColor(getSectionValue(section2.value));
     final Color section3Color =
         getSectionColor(section3Value);
@@ -99,7 +102,7 @@ class ReusableCardWidget extends ConsumerWidget {
                     color: section1Color,
                     text: section1.name,
                     icon: icon,
-                    amount: "$currency${section1Value.abs()}",
+                    amount: "$currency${section1Value.toStringAsFixed(2)}",
                     isShow: false,
                     // isExpense: section3Value < 0,
                     iconSize: 18,
