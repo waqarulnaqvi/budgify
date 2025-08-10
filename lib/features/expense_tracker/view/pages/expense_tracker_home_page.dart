@@ -186,21 +186,3 @@ class _ExpenseTrackerHomePageState extends ConsumerState<ExpenseTrackerHomePage>
     );
   }
 }
-
-// ReusableAppBar(
-// text: 'Expense Tracker',
-// text: 'Profile',
-// isCenterText: false,
-// isMenu: true,
-// onPressed: () {
-// _scaffoldKey.currentState!.openEndDrawer();
-// },
-// ),
-
-// spacerH(),
-// Padding(
-//     padding: const EdgeInsets.symmetric(horizontal: 15.0),
-//     child: DateFilter()),
-// spacerH(10),
-// CurrencyPicker(),
-// spacerH(10),
