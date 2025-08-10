@@ -16,9 +16,9 @@ class PrefsHelper {
   }
 
   // Retrieve a boolean value
-  Future<bool> getBoolValue(String key) async {
+  Future<bool?> getBoolValue(String key) async {
     await init();
-    return _prefs?.getBool(key) ?? false;
+    return _prefs?.getBool(key) ;
   }
 
   // Save a boolean value

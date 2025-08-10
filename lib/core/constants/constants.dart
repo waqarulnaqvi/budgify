@@ -37,6 +37,10 @@ class Constants {
   static const String budgetFlowUrl =
       'https://play.google.com/store/apps/details?id=com.mysteriouscoder.budgetflow';
 
+  //Google Forms Feedback URL
+  static const String googleFeedbackFormUrl =
+      "https://docs.google.com/forms/d/e/1FAIpQLSeEc7kuPDXezxgyOMAllpT8StrCcPAE0NT5yW5fJ0kGPjsb1w/viewform?usp=header";
+
   //Social Media Links
   static const String youtubeLink =
       "https://youtube.com/@mysterious_coder?si=nmKdCfauVOj0LApZ";

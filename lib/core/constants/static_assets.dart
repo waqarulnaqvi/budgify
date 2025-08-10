@@ -1,7 +1,4 @@
 class StaticAssets {
-  //Images
-
-
   // Icons
   static const String userProfile ="assets/icons/profile.png";
   static const String crossCloseIcon = 'assets/icons/cross_close_icon.png';
@@ -22,6 +19,9 @@ class StaticAssets {
   static const String budgetFlowIcon =
       'assets/icons/my_app_icons/budget_flow_icon.png';
 
+  //Theme Icons
+  static const String lightTheme = "assets/icons/light_theme.png";
+  static const String darkTheme = "assets/icons/dark_icon.png";
 
   //Images
   static const String noDataFoundImage = 'assets/images/no_data_found_image.png';

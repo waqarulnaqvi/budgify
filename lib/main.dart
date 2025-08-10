@@ -1,5 +1,6 @@
 import 'package:budgify/core/constants/constants.dart';
 import 'package:budgify/core/theme/app_colors.dart';
+import 'package:budgify/shared/viewmodel/theme_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -43,11 +44,12 @@ Future<void> _loadFonts() async {
   ]);
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var themeAsyncValue = ref.watch(isLightThemeProvider);
     TextTheme textTheme = createTextTheme(
       context,
       "Noto Music",
@@ -58,9 +60,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: Constants.budgetFlow,
       debugShowCheckedModeBanner: false,
-      theme: theme.light(),
-      darkTheme: theme.dark(),
-      themeMode: ThemeMode.system,
+      // theme: theme.light(),
+      // darkTheme: theme.dark(),
+      // themeMode: ThemeMode.system,
+      theme: themeAsyncValue.when(
+        data: (isLight) => isLight ? theme.light() : theme.dark(),
+        loading: () => theme.light(), // default while loading
+        error: (_, __) => theme.light(),
+      ),
+      themeMode: themeAsyncValue.when(
+        data: (isLight) => isLight ? ThemeMode.light : ThemeMode.dark,
+        loading: () => ThemeMode.light, // default while loading
+        error: (_, __) => ThemeMode.light,
+      ),
       onGenerateRoute: AppRoutes.onGenerateRoute,
       initialRoute: Paths.initial,
     );

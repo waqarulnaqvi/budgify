@@ -12,10 +12,9 @@ import '../../../../core/routes/paths.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_gradients.dart';
 import '../../../../core/theme/app_styles.dart';
-import '../../../../shared/view/widgets/currency_picker.dart';
 import '../../../../shared/view/widgets/date_filter.dart';
 import '../../../../shared/view/widgets/global_widgets.dart';
-import '../../model/currency_model.dart';
+import '../../../../shared/view/widgets/theme_controller_widget.dart';
 import '../../model/tracker_model.dart';
 import '../../viewmodel/riverpod/currency_provider.dart';
 import '../../viewmodel/riverpod/expense_tracker_notifier.dart';
@@ -79,7 +78,6 @@ class _ExpenseTrackerHomePageState extends ConsumerState<ExpenseTrackerHomePage>
       body: Stack(
         children: [
           Positioned.fill(
-
               child: Container(
             height: 100,
             decoration: BoxDecoration(
@@ -170,6 +168,8 @@ class _ExpenseTrackerHomePageState extends ConsumerState<ExpenseTrackerHomePage>
                 ],
               ),
               const Spacer(),
+              ThemeControllerWidget(),
+              spacerW(8),
               InkWell(
                 onTap: () {
                   _scaffoldKey.currentState?.openEndDrawer();

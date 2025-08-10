@@ -5,4 +5,5 @@ class PrefsKeys {
   static const String investmentFilter  = "investment_filter";
   static const String taxFilter  = "tax_filter";
   static const String currencyFilter  = "currency_filter";
+  static const String themeFilter  = "theme_filter";
 }

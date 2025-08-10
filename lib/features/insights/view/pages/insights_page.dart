@@ -43,7 +43,7 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
 
   Future<void> initPreference() async {
     prefsHelper = PrefsHelper();
-    isAlreadyRated = await prefsHelper!.getBoolValue(PrefsKeys.alreadyRated);
+    isAlreadyRated = await prefsHelper!.getBoolValue(PrefsKeys.alreadyRated) ??false;
     setState(() {});
     // print("Already Rated: $isAlreadyRated");
   }

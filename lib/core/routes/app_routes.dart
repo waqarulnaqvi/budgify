@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../features/expense_tracker/model/tracker_model.dart';
 import '../../features/expense_tracker/view/pages/investment_tax_history_page.dart';
 import '../../features/expense_tracker/view/pages/more_apps_page.dart';
+import '../../features/expense_tracker/view/widgets/google_forms_in_app_web_view.dart';
 import '../../features/my_budget/model/my_budget_model.dart';
 import '../../features/my_budget/view/pages/budget_management_page.dart';
 import '../../shared/view/widgets/bottom_nav_bar/bottom_nav_bar.dart';
@@ -37,6 +38,10 @@ class AppRoutes {
             builder: (context) => InvestmentTaxHistoryPage(
                   isTaxPage: isTaxPage ?? false,
                 ));
+
+      case Paths.googleFormsInAppWebView:
+        return MaterialPageRoute(
+            builder: (context) => GoogleFormInAppWebView());
 
       case Paths.budgetManagementPage:
         final myBudgetModel = settings.arguments as MyBudgetModel?;

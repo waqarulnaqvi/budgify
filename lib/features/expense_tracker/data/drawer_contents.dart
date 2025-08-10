@@ -56,24 +56,13 @@ List<DrawerModel> drawerContentsList(BuildContext context, WidgetRef ref) => [
                 context: context);
             Navigator.pop(context);
           }),
-      // DrawerModel(
-      //     title: "Change Currency",
-      //     icon: Icons.currency_exchange,
-      //     onTap: () {
-      //       Navigator.pop(context);
-      //
-      //       showCurrencyPicker(
-      //         context: context,
-      //         showFlag: true,
-      //         showCurrencyName: true,
-      //         showCurrencyCode: true,
-      //         onSelect: (Currency currency) {
-      //           ref.read(currencyProvider.notifier).state =
-      //               CurrencyModel.fromJson(currency);
-      //           // print(currency.name);
-      //         },
-      //       );
-      //     }),
+  DrawerModel(
+      title: "Feedback Form",
+      icon: Icons.feedback_outlined,
+      onTap: () {
+        Navigator.pop(context);
+        Navigator.pushNamed(context, Paths.googleFormsInAppWebView);
+      }),
       DrawerModel(
           title: "Privacy Policy",
           icon: Icons.privacy_tip,
