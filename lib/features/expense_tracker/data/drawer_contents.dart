@@ -51,8 +51,7 @@ List<DrawerModel> drawerContentsList(BuildContext context, WidgetRef ref) => [
           icon: Icons.description_outlined,
           onTap: () {
             openUrl(
-                url:
-                    "https://play.google.com/store/apps/details?id=com.mysteriouscoder.budgetflow",
+                url: Constants.budgetFlowUrl,
                 context: context);
             Navigator.pop(context);
           }),

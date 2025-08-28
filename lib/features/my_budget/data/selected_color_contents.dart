@@ -1,5 +1,4 @@
 import 'package:budgify/core/theme/app_colors.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../model/selected_color_model.dart';
 
 List<SelectedColor> selectedColorContents(var rProvider) => [

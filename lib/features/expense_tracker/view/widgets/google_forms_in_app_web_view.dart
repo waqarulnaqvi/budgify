@@ -50,6 +50,7 @@ class _GoogleFormInAppWebViewState extends ConsumerState<GoogleFormInAppWebView>
           // },
         ),
         if (progress < 1.0) LinearProgressIndicator(value: progress),
+        if(progress <0.8) Center(child: CircularProgressIndicator(),)
       ],
     );
   }
