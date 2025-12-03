@@ -1,6 +1,8 @@
 import 'package:budgify/core/routes/paths.dart';
+import 'package:budgify/features/emi_and_loan/view/pages/installment_details_page.dart';
 import 'package:budgify/features/expense_tracker/view/pages/all_transaction_page.dart';
 import 'package:budgify/features/expense_tracker/view/pages/expense_management_page.dart';
+import 'package:budgify/features/onboard/view/pages/on_boarding_page.dart';
 import 'package:flutter/material.dart';
 import '../../features/expense_tracker/model/tracker_model.dart';
 import '../../features/expense_tracker/view/pages/investment_tax_history_page.dart';
@@ -14,6 +16,12 @@ class AppRoutes {
   static Route? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Paths.initial:
+        return MaterialPageRoute(builder: (context) => BottomNavBar());
+
+      case Paths.onboardingPage:
+        return MaterialPageRoute(builder: (context) => OnboardingPage());
+
+      case Paths.bottomNavBar:
         return MaterialPageRoute(builder: (context) => BottomNavBar());
 
       case Paths.moreAppsPage:
@@ -42,6 +50,10 @@ class AppRoutes {
       case Paths.googleFormsInAppWebView:
         return MaterialPageRoute(
             builder: (context) => GoogleFormInAppWebView());
+
+      case Paths.installmentDetailsPage:
+        return MaterialPageRoute(
+            builder: (context) => InstallmentDetailsPage());
 
       case Paths.budgetManagementPage:
         final myBudgetModel = settings.arguments as MyBudgetModel?;

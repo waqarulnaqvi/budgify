@@ -1,8 +1,8 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../core/constants/prefs_keys.dart';
-import '../../core/local/prefs_helper.dart';
+import '../../../core/constants/prefs_keys.dart';
+import '../../../core/local/prefs_helper.dart';
 
 class ThemeAsyncNotifier extends AsyncNotifier<bool> {
   final prefsHelper = PrefsHelper();

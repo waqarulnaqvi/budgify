@@ -25,11 +25,13 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
   @override
   Widget build(BuildContext context) {
     return _isAdLoaded
-        ? SizedBox(
-            height: _bannerAd.size.height.toDouble(),
-            width: _bannerAd.size.width.toDouble(),
-            child: AdWidget(ad: _bannerAd),
-          )
+        ? Center(
+          child: SizedBox(
+              height: _bannerAd.size.height.toDouble(),
+              width: _bannerAd.size.width.toDouble(),
+              child: AdWidget(ad: _bannerAd),
+            ),
+        )
         : SizedBox.shrink(); // Placeholder when ad is not loaded
   }
 

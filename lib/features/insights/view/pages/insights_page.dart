@@ -141,7 +141,8 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
       required double totalInvestment,
       required double totalExpense,
       required double totalTax,
-      required ColorScheme theme}) {
+      required ColorScheme theme}) 
+  {
     return Column(
       children: [
         Padding(
@@ -358,7 +359,8 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
   }
 
   /// No Data Found Section
-  Widget noDataFoundSection({required final double w, required final theme}) {
+  Widget noDataFoundSection({required final double w, required final theme})
+  {
     return Card(
       elevation: 4,
       margin: const EdgeInsets.only(bottom: 30, top: 5, left: 20, right: 20),
@@ -381,7 +383,8 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
 
   ///More Apps Carousel
   Widget moreAppsCarousel(
-      {required double w, required BuildContext context, required theme}) {
+      {required double w, required BuildContext context, required theme}) 
+  {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -404,7 +407,8 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
   }
 
   ///PlayStore rating widget
-  Widget playStoreRating([final w, final theme, final prefsHelper]) {
+  Widget playStoreRating([final w, final theme, final prefsHelper]) 
+  {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Card(
@@ -472,7 +476,8 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
   }
 
   ///Social media Connection
-  Widget socialMediaConnections([final w, final theme]) {
+  Widget socialMediaConnections([final w, final theme]) 
+  {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Card(

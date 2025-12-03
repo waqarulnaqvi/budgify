@@ -17,15 +17,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
   String bottomNavFontFamily = 'Poppins';
   int currentPage = 0;
   List<Widget> bottomBarPages = [];
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
     bottomBarPages = [
-      ExpenseTrackerHomePage(),
-      // EmiAndLoan(),
+      ExpenseTrackerHomePage(scaffoldKey: _scaffoldKey),
+      EmiAndLoan(),
       MyBudgetPage(),
-      // BudgetManagementPage(),
       InsightsPage(),
     ];
   }
@@ -37,21 +37,41 @@ class _BottomNavBarState extends State<BottomNavBar> {
   }
 
   @override
+  void dispose() {
+    _scaffoldKey.currentState?.closeEndDrawer();
+    _scaffoldKey.currentState?.closeDrawer();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // return WillPopScope(
-    //   onWillPop: () => ReusableDialogClass.showYesNoDialog(context),
     return PopScope(
       canPop: false, // Important: block auto pop
-      onPopInvokedWithResult: (value, _) => ReusableDialogClass.showYesNoDialog(context),
+      onPopInvokedWithResult: (value, result) async {
+        final scaffold = _scaffoldKey.currentState;
+
+        // 🔥 Check if ANY drawer is open
+        if (scaffold?.isDrawerOpen == true ||
+            scaffold?.isEndDrawerOpen == true) {
+          scaffold?.closeDrawer();
+          scaffold?.closeEndDrawer();
+          return; // ⛔ Stop further actions
+        }
+
+        bool? shouldExit = await ReusableDialogClass.showYesNoDialog(context);
+
+        if (shouldExit == true) {
+          if (context.mounted) {
+            Navigator.pop(context); // exit the screen
+          }
+        }
+      },
       child: Scaffold(
         // extendBody: true,
         backgroundColor: Theme.of(context).colorScheme.surface,
         body: Stack(
           children: [
-            IndexedStack(
-              index: currentPage,
-              children: bottomBarPages,
-            ),
+            IndexedStack(index: currentPage, children: bottomBarPages),
           ],
         ),
 
@@ -68,59 +88,42 @@ class _BottomNavBarState extends State<BottomNavBar> {
   }
 
   List<SalomonBottomBarItem> bottomNavBarItems(BuildContext context) => [
-        SalomonBottomBarItem(
-          selectedColor: Theme.of(context).colorScheme.primary,
-          icon: const Icon(
-            Icons.monetization_on_outlined,
-          ),
-          title: Text(
-            'Expense Tracker',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: bottomNavFontFamily,
-            ),
-          ),
-        ),
-    // SalomonBottomBarItem(
-    //   selectedColor: Theme.of(context).colorScheme.primary,
-    //   icon: const Icon(
-    //     Icons.account_balance,
-    //   ),
-    //   title: Text(
-    //     'EMI & Loan',
-    //     textAlign: TextAlign.center,
-    //     style: TextStyle(
-    //       fontFamily: bottomNavFontFamily,
-    //     ),
-    //   ),
-    // ),
+    SalomonBottomBarItem(
+      selectedColor: Theme.of(context).colorScheme.primary,
+      icon: const Icon(Icons.monetization_on_outlined),
+      title: Text(
+        'Expense Tracker',
+        textAlign: TextAlign.center,
+        style: TextStyle(fontFamily: bottomNavFontFamily),
+      ),
+    ),
+    SalomonBottomBarItem(
+      selectedColor: Theme.of(context).colorScheme.primary,
+      icon: const Icon(Icons.account_balance),
+      title: Text(
+        'EMI & Loan',
+        textAlign: TextAlign.center,
+        style: TextStyle(fontFamily: bottomNavFontFamily),
+      ),
+    ),
 
-
-        SalomonBottomBarItem(
-          selectedColor: Theme.of(context).colorScheme.primary,
-          icon: const Icon(
-            Icons.account_balance_wallet_outlined,
-          ),
-          title: Text(
-            'My Budget',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: bottomNavFontFamily,
-            ),
-          ),
-        ),
-        SalomonBottomBarItem(
-          selectedColor: Theme.of(context).colorScheme.primary,
-          icon: const Icon(
-            Icons.bar_chart,
-          ),
-          title: Text(
-            'Insights',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: bottomNavFontFamily,
-            ),
-          ),
-        ),
-      ];
+    SalomonBottomBarItem(
+      selectedColor: Theme.of(context).colorScheme.primary,
+      icon: const Icon(Icons.account_balance_wallet_outlined),
+      title: Text(
+        'My Budget',
+        textAlign: TextAlign.center,
+        style: TextStyle(fontFamily: bottomNavFontFamily),
+      ),
+    ),
+    SalomonBottomBarItem(
+      selectedColor: Theme.of(context).colorScheme.primary,
+      icon: const Icon(Icons.bar_chart),
+      title: Text(
+        'Insights',
+        textAlign: TextAlign.center,
+        style: TextStyle(fontFamily: bottomNavFontFamily),
+      ),
+    ),
+  ];
 }

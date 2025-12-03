@@ -3,7 +3,7 @@ import 'package:flutter_icon_snackbar/flutter_icon_snackbar.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:intl/intl.dart';
 
-void openUrl(
+Future<void> openUrl(
     {required String url,
       required BuildContext context,
       bool isExternal = false,

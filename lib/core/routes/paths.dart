@@ -7,4 +7,6 @@ class Paths {
   static const String investmentTaxHistoryPage = '/investment_tax_history_page';
   static const String budgetManagementPage = '/budget_management_page';
   static const String googleFormsInAppWebView = '/google_forms_in_app_web_view';
+  static const String installmentDetailsPage = '/installment_details_page';
+  static const String onboardingPage = '/onboarding_page';
 }

@@ -1,60 +1,33 @@
-import 'package:budgify/features/expense_tracker/view/widgets/dialog/reusable_dialog.dart';
+import 'package:budgify/features/expense_tracker/view/widgets/dialog/all_dialogs/exit_dialog.dart';
+import 'package:budgify/features/expense_tracker/view/widgets/dialog/all_dialogs/social_media_dialog.dart';
+import 'package:budgify/features/expense_tracker/view/widgets/dialog/common_dialog_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../../../../core/constants/constants.dart';
-import '../../../../../core/theme/app_gradients.dart';
-import '../../../../../shared/view/widgets/buttons/reusable_icon_button.dart';
-import 'dialog_widgets.dart';
+import 'package:scroll_date_picker/scroll_date_picker.dart';
+import '../../../../../shared/view/widgets/global_widgets.dart';
+import 'all_dialogs/delete_dialog.dart';
 
 class ReusableDialogClass {
   static Future<bool> showYesNoDialog(BuildContext context) async {
     return await showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => ReusableDialog(
-        dialogTitle:  "Are you sure you want to exit?",
-        dialogRowItem1: DialogYesNoButton(
-          text: 'Yes',
-          fontSize: 16,
-          onTapFun: () {
-            SystemNavigator.pop();
-          },
-          color: Colors.redAccent,
-        ),
-        dialogRowItem2: DialogYesNoButton(
-          text: 'No',
-          fontSize: 16,
-          onTapFun: () {
-            Navigator.of(context).pop();
-          },
-          color: Colors.green,
-        ),
-      ),
-    );
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => const CommonDialogWidget(child: ExitDialog()),
+        ) ??
+        false;
   }
 
-  static Future<bool> deletedEntryDialog({required BuildContext context,required VoidCallback onClick,String text="transaction"}) async {
+  static Future<bool> deletedEntryDialog({
+    required BuildContext context,
+    required VoidCallback onClick,
+    String text = "transaction",
+  }) async {
     return await showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => ReusableDialog(
-        dialogTitle:  "Are you sure you want to delete $text?",
-        dialogRowItem1: DialogYesNoButton(
-          text: 'Yes',
-          fontSize: 16,
-          onTapFun: onClick ,
-          color: Colors.redAccent,
-        ),
-        dialogRowItem2: DialogYesNoButton(
-          text: 'No',
-          fontSize: 16,
-          onTapFun: () {
-            Navigator.of(context).pop();
-          },
-          color: Colors.green,
-        ),
-      ),
+      builder:
+          (context) => CommonDialogWidget(
+            child: DeleteDialog(onClickYes: onClick, text: text),
+          ),
     );
   }
 
@@ -63,24 +36,121 @@ class ReusableDialogClass {
       context: context,
       barrierDismissible: false,
       // barrierColor: Colors.transparent, // Makes the background fully transparent
-      builder: (context) => ReusableDialog(
-        dialogTitle:  "Connect with us on",
-        dialogRowItem1: ReusableIconButton(
-          title: 'Youtube',
-          socialIconSize: 20,
-          icon: FontAwesomeIcons.youtube,
-          colors: AppGradients.youtubeGradient,
-          url:  Constants.youtubeLink,
-        ),
-        dialogRowItem2: ReusableIconButton(
-            title: 'Instagram',
-            socialIconSize: 18,
-            spacerWidth: 4,
-            icon: FontAwesomeIcons.instagram,
-            colors: AppGradients.instagramGradient,
-            url: Constants.instagramLink
-        )
-      ),
+      builder: (context) => CommonDialogWidget(child: SocialMediaDialog()),
+    );
+  }
+
+  static Future<void> setDateDialog(
+    BuildContext context, {
+    required DateTime selectedDate,
+    required VoidCallback onApplyTap,
+    required Function(DateTime value) onDateTimeChanged,
+    required VoidCallback onTapToday,
+  }) async {
+    final theme = Theme.of(context).colorScheme;
+    final double w=MediaQuery.of(context).size.width;
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('Select Date'),
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Icon(Icons.close, color: Colors.black),
+              ),
+            ],
+          ),
+          content: Container(
+            decoration: BoxDecoration(
+              color: theme.surface,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            height: 200,
+            width: w,
+            child: ScrollDatePicker(
+              selectedDate: selectedDate,
+              locale: const Locale('en', 'US'),
+              onDateTimeChanged: onDateTimeChanged,
+            ),
+          ),
+          actions: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                InkWell(
+                  onTap: () async {
+                    Navigator.of(context).pop();
+                    onTapToday();
+                  },
+                  child: Card(
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Container(
+                      height: 40,
+                      width: 100,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: theme.primary,
+                      ),
+                      child: const Center(
+                        child: Text(
+                          "Today",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                spacerW(),
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    onApplyTap();
+                  },
+                  child: Card(
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Container(
+                      height: 40,
+                      width: 100,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: theme.primary,
+                      ),
+                      child: const Center(
+                        child: Text(
+                          "Apply",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
     );
   }
 }

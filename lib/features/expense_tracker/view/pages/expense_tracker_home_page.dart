@@ -29,12 +29,17 @@ import '../widgets/filters/transaction_filter.dart';
 import '../widgets/reusable_card_details.dart';
 import '../widgets/transaction_history/reusable_info.dart';
 import '../widgets/transaction_history/transaction_info.dart';
+
 part 'expense_tracker_page.dart';
+
 part 'investment_page.dart';
+
 part 'tax_page.dart';
 
 class ExpenseTrackerHomePage extends ConsumerStatefulWidget {
-  const ExpenseTrackerHomePage({super.key});
+  final GlobalKey<ScaffoldState> scaffoldKey;
+
+  const ExpenseTrackerHomePage({super.key, required this.scaffoldKey});
 
   @override
   ConsumerState<ExpenseTrackerHomePage> createState() =>
@@ -44,7 +49,6 @@ class ExpenseTrackerHomePage extends ConsumerStatefulWidget {
 class _ExpenseTrackerHomePageState extends ConsumerState<ExpenseTrackerHomePage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -55,74 +59,80 @@ class _ExpenseTrackerHomePageState extends ConsumerState<ExpenseTrackerHomePage>
   @override
   void dispose() {
     _tabController.dispose();
-    _scaffoldKey.currentState?.closeEndDrawer();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
-    final h = MediaQuery.of(context).size.height;
     final w = MediaQuery.of(context).size.width;
     return Scaffold(
-      key: _scaffoldKey,
-      endDrawer: CustomDrawer(h: h, w: w * 0.7),
+      key: widget.scaffoldKey,
+      endDrawer: CustomDrawer( w: w * 0.7),
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(100),
-          child: DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(colors: AppGradients.skyBlueMyAppGradient,),
-              ),
-              child: appBar(theme))),
+        preferredSize: Size.fromHeight(100),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(colors: AppGradients.skyBlueMyAppGradient),
+          ),
+          child: appBar(theme),
+        ),
+      ),
       backgroundColor: theme.surface,
       body: Stack(
         children: [
           Positioned.fill(
-              child: Container(
-            height: 100,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(colors: AppGradients.skyBlueMyAppGradient),
-            ),
-          )),
-
-
-          Positioned.fill(
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20)),
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: theme.surface,
-                  ),
-                  child: Column(
-                    children: [
-                      TabBar(
-                          controller: _tabController,
-                          indicatorSize: TabBarIndicatorSize.tab,
-                          indicatorColor: theme.primary,
-                          labelStyle: AppStyles.headingPrimary(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              context: context,
-                              color: theme.primary),
-                          tabs: [
-                            Tab(text: 'All'),
-                            Tab(text: 'Investment'),
-                            Tab(text: 'Tax'),
-                          ]),
-                      Expanded(
-                          child: TabBarView(controller: _tabController, children: [
-                        ExpenseTrackerPage(),
-                        InvestmentPage(),
-                        TaxPage(),
-                      ]))
-                    ],
-                  ),
+            child: Container(
+              height: 100,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: AppGradients.skyBlueMyAppGradient,
                 ),
               ),
             ),
+          ),
 
+          Positioned.fill(
+            child: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+              child: DecoratedBox(
+                decoration: BoxDecoration(color: theme.surface),
+                child: Column(
+                  children: [
+                    TabBar(
+                      controller: _tabController,
+                      indicatorSize: TabBarIndicatorSize.tab,
+                      indicatorColor: theme.primary,
+                      labelStyle: AppStyles.headingPrimary(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        context: context,
+                        color: theme.primary,
+                      ),
+                      tabs: [
+                        Tab(text: 'All'),
+                        Tab(text: 'Investment'),
+                        Tab(text: 'Tax'),
+                      ],
+                    ),
+                    Expanded(
+                      child: TabBarView(
+                        controller: _tabController,
+                        children: [
+                          ExpenseTrackerPage(),
+                          InvestmentPage(),
+                          TaxPage(),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -143,46 +153,56 @@ class _ExpenseTrackerHomePageState extends ConsumerState<ExpenseTrackerHomePage>
       greeting = "Good Evening!";
     }
     return Padding(
-      padding: const EdgeInsets.only(left: 20, right: 20, top: 5,bottom: 15),
+      padding: const EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 15),
       child: SafeArea(
         child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircleAvatar(
-                radius: 24,
-                backgroundImage: AssetImage(StaticAssets.userProfile),
-              ),
-              spacerW(10),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Hi,",
-                      style: AppStyles.descriptionPrimary(
-                          context: context, fontSize: 14, color: Colors.white)),
-                  spacerH(2),
-                  Text(greeting,
-                      style: AppStyles.headingPrimary(
-                          context: context, fontSize: 18, color: Colors.white,fontWeight: FontWeight.w800)),
-                ],
-              ),
-              const Spacer(),
-              ThemeControllerWidget(),
-              spacerW(8),
-              InkWell(
-                onTap: () {
-                  _scaffoldKey.currentState?.openEndDrawer();
-                },
-                child: Icon(
-                  FontAwesomeIcons.barsStaggered,
-                  color: Colors.white,
-                  size: 20,
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              radius: 24,
+              backgroundImage: AssetImage(StaticAssets.userProfile),
+            ),
+            spacerW(10),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Hi,",
+                  style: AppStyles.descriptionPrimary(
+                    context: context,
+                    fontSize: 14,
+                    color: Colors.white,
+                  ),
                 ),
+                spacerH(2),
+                Text(
+                  greeting,
+                  style: AppStyles.headingPrimary(
+                    context: context,
+                    fontSize: 18,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ],
+            ),
+            const Spacer(),
+            ThemeControllerWidget(),
+            spacerW(8),
+            InkWell(
+              onTap: () {
+                widget.scaffoldKey.currentState?.openEndDrawer();
+              },
+              child: Icon(
+                FontAwesomeIcons.barsStaggered,
+                color: Colors.white,
+                size: 20,
               ),
-
-
-            ]),
+            ),
+          ],
+        ),
       ),
     );
   }

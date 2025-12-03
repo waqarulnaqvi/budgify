@@ -181,10 +181,44 @@ class DBHelper {
       return [];
     }
   }
+
+  Future<MyBudgetModel?> getBudgetById(int id) async {
+    final db = await getDB();
+    final result = await db.query(
+      myBudgetTableName,
+      where: "$columnMyBudgetId = ?",
+      whereArgs: [id],
+    );
+
+    if (result.isNotEmpty) {
+      return MyBudgetModel.fromMap(result.first);
+    }
+    return null;
+  }
+
+
   /// Update My Budget Data
+  /// only update if no change
+  /// ignore date while comparing
   Future<bool> updateMyBudgetData(MyBudgetModel myBudget) async {
     try {
       Database mDB = await getDB();
+
+      final oldItem = await getBudgetById(myBudget.id!);
+
+      if (oldItem == null) return false; // Safety check
+
+      // date intentionally NOT compared
+      final bool noChanges =
+          oldItem.title == myBudget.title &&
+              oldItem.description == myBudget.description &&
+              oldItem.color == myBudget.color;
+
+      // 3. If nothing changed → do nothing
+      if (noChanges) {
+        return false; // ⛔ Stop here — don't update DB
+      }
+
       int rowsAffected = await mDB.update(myBudgetTableName, myBudget.toMap(),
           where: "$columnMyBudgetId = ?", whereArgs: [myBudget.id]);
       return rowsAffected > 0;

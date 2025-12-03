@@ -429,7 +429,7 @@ class _ExpenseManagementPageState extends ConsumerState<ExpenseManagementPage> {
                                 percentageController.text.isEmpty
                                     ? "0"
                                     : percentageController.text),
-                            date: dateRef!.selectedDate ??
+                            date: dateRef?.selectedDate ??
                                 formatDate(DateTime.now()),
                             amount: double.parse(amountController.text),
                             trackerCategory: ExpenseType.values
@@ -443,7 +443,7 @@ class _ExpenseManagementPageState extends ConsumerState<ExpenseManagementPage> {
                             title: titleController.text.isEmpty
                                 ? ""
                                 : titleController.text,
-                            date: dateRef!.selectedDate ??
+                            date: dateRef?.selectedDate ??
                                 formatDate(DateTime.now()),
                             percentage: double.parse(
                                 percentageController.text.isEmpty

@@ -51,6 +51,8 @@ class Constants {
   static const String whatsAppChannelLink =
       "https://whatsapp.com/channel/0029Vb1Se9gKrWR1TBGlCs1x";
 
+  static const String budgetFlowPrivacyPolicy="https://mysteriouscoder.com/privacypolicy/budgetflow";
+
   static const List<Map<String, dynamic>> mCat = [
     {
       "catId": 0,

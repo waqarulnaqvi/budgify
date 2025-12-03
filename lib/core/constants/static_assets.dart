@@ -5,6 +5,12 @@ class StaticAssets {
   static const String budgetFlowHomeIcon = 'assets/icons/budget_flow_home_icon.png';
   static const String calenderIcon = 'assets/icons/calendar_icon.png';
 
+  //On boarding
+  static const String onboard1= 'assets/images/onboard/onboard1.png';
+  static const String onboard2= 'assets/images/onboard/onboard2.png';
+  static const String onboard3= 'assets/images/onboard/onboard3.png';
+  static const String onboard4= 'assets/images/onboard/onboard4.png';
+
   //All apps Icons
   static const String brainBoosterIcon =
       'assets/icons/my_app_icons/brain_booster_icon.jpg';

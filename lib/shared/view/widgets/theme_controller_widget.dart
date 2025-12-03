@@ -1,7 +1,7 @@
 import 'package:budgify/core/constants/static_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../viewmodel/theme_controller.dart';
+import '../../viewmodel/riverpod/theme_controller.dart';
 
 class ThemeControllerWidget extends ConsumerWidget {
   const ThemeControllerWidget({super.key});

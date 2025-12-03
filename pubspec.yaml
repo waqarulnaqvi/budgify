@@ -3,7 +3,7 @@ publish_to: 'none'
 version: 1.0.0+10
 
 environment:
-  sdk: ^3.6.1
+  sdk: ^3.8.1
 
 dependencies:
   flutter:
@@ -42,6 +42,8 @@ dependencies:
 
   google_mobile_ads: ^5.3.1                  # For showing ads
   flutter_inappwebview: ^6.1.5                # For using in-app webview
+  equatable: ^2.0.7
+  flutter_staggered_grid_view: ^0.7.0
 
 #  android_alarm_manager_plus: ^4.0.7         # For scheduling alarms
 #  flutter_date_pickers: ^0.4.3               # For using date picker
@@ -59,6 +61,7 @@ flutter:
     - assets/icons/my_app_icons/
     - assets/icons/category/
     - assets/images/
+    - assets/images/onboard/
     - assets/icons/splash/
 
   fonts:

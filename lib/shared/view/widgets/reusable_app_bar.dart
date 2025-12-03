@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-
 import '../../../core/theme/app_styles.dart';
 
 class ReusableAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -25,17 +22,18 @@ class ReusableAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
     final Color foregroundColor = Colors.white;
-    final bool canPop = Navigator.canPop(context);
+    // final bool canPop = Navigator.canPop(context);
     //    final bool canPop = Navigator.of(context).canPop();
     // final Color foregroundColor = theme.surface;
     return AppBar(
-      leading: canPop
-          ? IconButton(
-        icon: Icon(Platform.isIOS ? Icons.arrow_back_ios : Icons.arrow_back),
-        color: foregroundColor,
-        onPressed: onPressedBackButton ?? () => Navigator.of(context).pop(),
-      )
-          : null,
+      titleSpacing: 0, //This removes the unnecessary space between the title and back button if the appbar can be pop
+      // leading: canPop
+      //     ? IconButton(
+      //   icon: Icon(Platform.isIOS ? Icons.arrow_back_ios : Icons.arrow_back),
+      //   color: foregroundColor,
+      //   onPressed: onPressedBackButton ?? () => Navigator.of(context).pop(),
+      // )
+      //     : null,
       backgroundColor: theme.primary,
       centerTitle: isCenterText,
       foregroundColor: foregroundColor,
