@@ -1,14 +1,14 @@
 name: budgify
 publish_to: 'none'
-version: 1.0.0+10
+version: 2.0.0+11
 
 environment:
-  sdk: ^3.8.1
+  sdk: ^3.10.1
 
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.8                    # For using Cupertino icons
+#  cupertino_icons: ^1.0.8                    # For using Cupertino icons
   flutter_icon_snackbar: ^1.1.4              # For showing animated snackbar with icons
   icons_launcher: ^3.0.0                     # For setting app launcher icon in ios and android
   font_awesome_flutter: ^10.5.0              # For using More icons

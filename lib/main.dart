@@ -8,12 +8,11 @@ import 'core/local/prefs_helper.dart';
 import 'core/routes/app_routes.dart';
 import 'core/routes/paths.dart';
 import 'core/theme/app_theme.dart';
-import 'core/utils/util.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await _loadFonts();
+  // await _loadFonts();
 
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
@@ -28,21 +27,21 @@ Future<void> main() async {
   runApp(ProviderScope(child: MyApp(isSeenOnBoard: isSeenOnBoard),));
 }
 
-Future<void> _loadFonts() async {
-  // Load Poppins font
-  final fontLoaderPoppins = FontLoader('Poppins')
-    ..addFont(rootBundle.load('assets/fonts/Poppins-Regular.ttf'));
-
-  // Load Montserrat font
-  final fontLoaderMontserrat = FontLoader('Montserrat')
-    ..addFont(rootBundle.load('assets/fonts/Montserrat-Regular.ttf'));
-
-  // Load both fonts
-  await Future.wait([
-    fontLoaderPoppins.load(),
-    fontLoaderMontserrat.load(),
-  ]);
-}
+// Future<void> _loadFonts() async {
+//   // Load Poppins font
+//   final fontLoaderPoppins = FontLoader('Poppins')
+//     ..addFont(rootBundle.load('assets/fonts/Poppins-Regular.ttf'));
+//
+//   // Load Montserrat font
+//   final fontLoaderMontserrat = FontLoader('Montserrat')
+//     ..addFont(rootBundle.load('assets/fonts/Montserrat-Regular.ttf'));
+//
+//   // Load both fonts
+//   await Future.wait([
+//     fontLoaderPoppins.load(),
+//     fontLoaderMontserrat.load(),
+//   ]);
+// }
 
 class MyApp extends ConsumerWidget {
   final bool isSeenOnBoard;
@@ -52,12 +51,14 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var themeAsyncValue = ref.watch(isLightThemeProvider);
-    TextTheme textTheme = createTextTheme(
-      context,
-      "Noto Music",
-      "Noto Sans Display",
+    // TextTheme textTheme = createTextTheme(
+    //   context,
+      // "Noto Music",
+      // "Noto Sans Display",
+    // );
+    MaterialTheme theme = MaterialTheme(
+        // textTheme
     );
-    MaterialTheme theme = MaterialTheme(textTheme);
 
     return MaterialApp(
       title: Constants.budgetFlow,

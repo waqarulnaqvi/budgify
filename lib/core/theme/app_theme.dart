@@ -3,10 +3,10 @@ import "package:flutter/material.dart";
 import "app_colors.dart";
 
 class MaterialTheme {
-  final TextTheme textTheme;
+  // final TextTheme textTheme;
 
   const MaterialTheme(
-    this.textTheme,
+    // this.textTheme,
   );
 
   static ColorScheme lightScheme() {
@@ -348,10 +348,10 @@ class MaterialTheme {
     useMaterial3: true,
     brightness: colorScheme.brightness,
     colorScheme: colorScheme,
-    textTheme: textTheme.apply(
-      bodyColor: colorScheme.onSurface,
-      displayColor: colorScheme.onSurface,
-    ),
+    // textTheme: textTheme.apply(
+    //   bodyColor: colorScheme.onSurface,
+    //   displayColor: colorScheme.onSurface,
+    // ),
     scaffoldBackgroundColor: colorScheme.surface,
     canvasColor: colorScheme.surface,
   );

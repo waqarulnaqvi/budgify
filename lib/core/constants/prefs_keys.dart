@@ -7,6 +7,5 @@ class PrefsKeys {
   static const String taxFilter  = "tax_filter";
   static const String currencyFilter  = "currency_filter";
   static const String themeFilter  = "theme_filter";
-
-  static const String isShowAds="is_show_ads";
+  static const String isShowOpenAds  = "is_show_open_ads";
 }

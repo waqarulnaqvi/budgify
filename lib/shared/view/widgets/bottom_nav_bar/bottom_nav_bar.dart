@@ -2,6 +2,9 @@ import 'package:budgify/features/expense_tracker/view/widgets/dialog/reusable_di
 import 'package:budgify/features/insights/view/pages/insights_page.dart';
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import '../../../../core/ads/ad_helper.dart';
+import '../../../../core/constants/prefs_keys.dart';
+import '../../../../core/local/prefs_helper.dart';
 import '../../../../features/emi_and_loan/view/pages/emi_and_loan.dart';
 import '../../../../features/expense_tracker/view/pages/expense_tracker_home_page.dart';
 import '../../../../features/my_budget/view/pages/my_budget_page.dart';
@@ -24,12 +27,27 @@ class _BottomNavBarState extends State<BottomNavBar> {
     super.initState();
     bottomBarPages = [
       ExpenseTrackerHomePage(scaffoldKey: _scaffoldKey),
-      EmiAndLoan(),
+      // EmiAndLoan(),
       MyBudgetPage(),
       InsightsPage(),
     ];
+    // 🔥 Run after UI is fully rendered
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      showOpenAd();
+    });
   }
 
+  Future<void> showOpenAd() async {
+    PrefsHelper prefs = PrefsHelper();
+    int count = await prefs.getIntValue(PrefsKeys.isShowOpenAds) ?? 1;
+    if ( count % 6 == 0) {
+      AdHelper.createAndShowAppOpenAd();
+    } else {
+      count++;
+      await prefs.setIntValue(PrefsKeys.isShowOpenAds, count);
+    }
+    debugPrint("It is a count $count");
+  }
   void _onItemTapped(int index) {
     setState(() {
       currentPage = index;
@@ -97,15 +115,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
         style: TextStyle(fontFamily: bottomNavFontFamily),
       ),
     ),
-    SalomonBottomBarItem(
-      selectedColor: Theme.of(context).colorScheme.primary,
-      icon: const Icon(Icons.account_balance),
-      title: Text(
-        'EMI & Loan',
-        textAlign: TextAlign.center,
-        style: TextStyle(fontFamily: bottomNavFontFamily),
-      ),
-    ),
+    // SalomonBottomBarItem(
+    //   selectedColor: Theme.of(context).colorScheme.primary,
+    //   icon: const Icon(Icons.account_balance),
+    //   title: Text(
+    //     'EMI & Loan',
+    //     textAlign: TextAlign.center,
+    //     style: TextStyle(fontFamily: bottomNavFontFamily),
+    //   ),
+    // ),
 
     SalomonBottomBarItem(
       selectedColor: Theme.of(context).colorScheme.primary,
