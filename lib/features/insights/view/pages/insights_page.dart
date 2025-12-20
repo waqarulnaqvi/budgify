@@ -43,7 +43,8 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
 
   Future<void> initPreference() async {
     prefsHelper = PrefsHelper();
-    isAlreadyRated = await prefsHelper!.getBoolValue(PrefsKeys.alreadyRated) ??false;
+    isAlreadyRated =
+        await prefsHelper!.getBoolValue(PrefsKeys.alreadyRated) ?? false;
     if (!mounted) return; // ✅ VERY IMPORTANT
     setState(() {});
     // print("Already Rated: $isAlreadyRated");
@@ -53,7 +54,7 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
   Widget build(BuildContext context) {
     final expenseData = ref.watch(expenseTrackerProvider);
     var totalBalance = (expenseData.trackerCategory.totalIncome -
-            expenseData.trackerCategory.totalExpense) -
+        expenseData.trackerCategory.totalExpense) -
         expenseData.trackerCategory.tax +
         expenseData.trackerCategory.investment;
 
@@ -72,9 +73,23 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
         ? expenseData.trackerCategory.tax * -1
         : expenseData.trackerCategory.tax;
 
-    final currencySymbol = ref.watch(currencyProvider).value?.symbol ?? '₹';
-    final theme = Theme.of(context).colorScheme;
-    final double w = MediaQuery.of(context).size.width;
+    final currencySymbol = ref
+        .watch(currencyProvider)
+        .value
+        ?.symbol ?? '₹';
+    final theme = Theme
+        .of(context)
+        .colorScheme;
+    final double w = MediaQuery
+        .of(context)
+        .size
+        .width;
+
+    final isShowChart =
+    (expenseData.trackerCategory.investment != 0 ||
+        expenseData.trackerCategory.tax != 0 ||
+        expenseData.trackerCategory.totalIncome != 0 ||
+        expenseData.trackerCategory.totalExpense != 0);
 
     return Scaffold(
       appBar: const ReusableAppBar(text: 'Insights'),
@@ -95,25 +110,23 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
                     child: DateFilter(),
                   ),
                   spacerH(),
-                  (expenseData.trackerCategory.investment != 0 ||
-                          expenseData.trackerCategory.tax != 0 ||
-                          expenseData.trackerCategory.totalIncome != 0 ||
-                          expenseData.trackerCategory.totalExpense != 0)
-                      ? reportSection(
-                          w: w,
-                          context: context,
-                          currencySymbol: currencySymbol,
-                          totalBalance: totalBalance,
-                          totalIncome: totalIncome,
-                          totalInvestment: totalInvestment,
-                          totalExpense: totalExpense,
-                          totalTax: totalTax,
-                          theme: theme,
-                        )
-                      : noDataFoundSection(
-                          w: w,
-                          theme: theme,
-                        ),
+                  Offstage(
+                    offstage: !isShowChart,
+                    child: reportSection(
+                      w: w,
+                      context: context,
+                      currencySymbol: currencySymbol,
+                      totalBalance: totalBalance,
+                      totalIncome: totalIncome,
+                      totalInvestment: totalInvestment,
+                      totalExpense: totalExpense,
+                      totalTax: totalTax,
+                      theme: theme,
+                    ),
+                  ),
+
+                  if (!isShowChart)
+                    noDataFoundSection(w: w, theme: theme),
                   moreAppsCarousel(w: w, context: context, theme: theme),
                   if (!isAlreadyRated) playStoreRating(w, theme, prefsHelper),
                   if (!isAlreadyRated) spacerH(25),
@@ -126,24 +139,24 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
 
           Positioned(
               bottom: 0,
-              child: Padding(padding: const EdgeInsets.symmetric(horizontal: 20), child: BannerAdWidget())),
+              child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: BannerAdWidget())),
         ],
       ),
     );
   }
 
   /// Report Section
-  Widget reportSection(
-      {required double w,
-      required BuildContext context,
-      required String currencySymbol,
-      required double totalBalance,
-      required double totalIncome,
-      required double totalInvestment,
-      required double totalExpense,
-      required double totalTax,
-      required ColorScheme theme}) 
-  {
+  Widget reportSection({required double w,
+    required BuildContext context,
+    required String currencySymbol,
+    required double totalBalance,
+    required double totalIncome,
+    required double totalInvestment,
+    required double totalExpense,
+    required double totalTax,
+    required ColorScheme theme}) {
     return Column(
       children: [
         Padding(
@@ -208,7 +221,7 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
           child: Card(
             elevation: 4,
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             child: Container(
               width: w,
               padding: const EdgeInsets.all(15),
@@ -252,12 +265,12 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
                     child: BarChart(
                       BarChartData(
                         maxY: [
-                              totalTax,
-                              totalIncome,
-                              totalInvestment,
-                              totalExpense,
-                              totalBalance
-                            ].map((e) => e < 0 ? -e : e).reduce(max) +
+                          totalTax,
+                          totalIncome,
+                          totalInvestment,
+                          totalExpense,
+                          totalBalance
+                        ].map((e) => e < 0 ? -e : e).reduce(max) +
                             500,
                         titlesData: FlTitlesData(show: true),
                         borderData: FlBorderData(show: true),
@@ -360,8 +373,7 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
   }
 
   /// No Data Found Section
-  Widget noDataFoundSection({required final double w, required final theme})
-  {
+  Widget noDataFoundSection({required final double w, required final theme}) {
     return Card(
       elevation: 4,
       margin: const EdgeInsets.only(bottom: 30, top: 5, left: 20, right: 20),
@@ -384,8 +396,7 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
 
   ///More Apps Carousel
   Widget moreAppsCarousel(
-      {required double w, required BuildContext context, required theme}) 
-  {
+      {required double w, required BuildContext context, required theme}) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -408,8 +419,7 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
   }
 
   ///PlayStore rating widget
-  Widget playStoreRating([final w, final theme, final prefsHelper]) 
-  {
+  Widget playStoreRating([final w, final theme, final prefsHelper]) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Card(
@@ -477,8 +487,7 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
   }
 
   ///Social media Connection
-  Widget socialMediaConnections([final w, final theme]) 
-  {
+  Widget socialMediaConnections([final w, final theme]) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Card(

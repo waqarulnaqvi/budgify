@@ -16,7 +16,7 @@ class ReusableDialogClass {
         false;
   }
 
-  static Future<bool> deletedEntryDialog({
+  static Future<void> deletedEntryDialog({
     required BuildContext context,
     required VoidCallback onClick,
     String text = "transaction",
@@ -31,7 +31,7 @@ class ReusableDialogClass {
     );
   }
 
-  static Future<bool> connectUsDialog(BuildContext context) async {
+  static Future<void> connectUsDialog(BuildContext context) async {
     return await showDialog(
       context: context,
       barrierDismissible: false,

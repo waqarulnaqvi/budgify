@@ -146,7 +146,15 @@ final expenseTrackerProviderOriginal =
 );
 
 final expenseTrackerProvider = StateProvider<TrackerSummary>((ref) {
-  final wProvider = ref.watch(dateProvider).value;
+  final dateAsync = ref.watch(dateProvider);
+
+  final wProvider = dateAsync.value ??
+      DateModel(
+        startDateFilter: formatDate(DateTime.now()),
+        endDateFilter: formatDate(DateTime.now()),
+        selectedDate: formatDate(DateTime.now()),
+      );
+
   final allData = ref.watch(expenseTrackerProviderOriginal);
   double totalIncome = 0.0;
   double totalExpense = 0.0;
