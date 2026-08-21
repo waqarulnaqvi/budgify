@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:budgify/core/constants/constants.dart';
 import 'package:budgify/shared/viewmodel/riverpod/theme_controller.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,6 @@ import 'core/local/prefs_helper.dart';
 import 'core/routes/app_routes.dart';
 import 'core/routes/paths.dart';
 import 'core/theme/app_theme.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -82,6 +82,10 @@ class MyApp extends ConsumerWidget {
       initialRoute: isSeenOnBoard ? Paths.initial : Paths.onboardingPage,
       navigatorObservers: [FirebaseAnalyticsObserver(analytics:
       analytics)],
+
+      builder: Platform.isAndroid
+          ? (context, child) => SafeArea(top: false, child: child!)
+          : null,
     );
   }
 }

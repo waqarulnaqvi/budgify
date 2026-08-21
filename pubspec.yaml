@@ -1,22 +1,22 @@
 name: budgify
 description: A modern Flutter To-Do application with reminders, filters, and offline support.
 publish_to: 'none'
-version: 2.0.0+12
+version: 2.0.0+13
 
 environment:
-  sdk: ^3.10.1
+  sdk: ^3.11.1
 
 dependencies:
   flutter:
     sdk: flutter
-#  cupertino_icons: ^1.0.8                    # For using Cupertino icons
+  #  cupertino_icons: ^1.0.8                    # For using Cupertino icons
   flutter_icon_snackbar: ^1.1.4              # For showing animated snackbar with icons
   icons_launcher: ^3.0.0                     # For setting app launcher icon in ios and android
   font_awesome_flutter: ^10.5.0              # For using More icons
   google_fonts: 6.2.1                        # For using Google Fonts
   flutter_native_splash: ^2.4.4              # For setting splash screen
   url_launcher: ^6.3.1                       # For launching URLs
-#  flutter_carousel_widget: ^3.1.0            # For using carousel widget
+  #  flutter_carousel_widget: ^3.1.0            # For using carousel widget
   share_plus: ^10.1.4                        # For sharing content
   flutter_riverpod: ^2.6.1                   # For state management
   salomon_bottom_bar: ^3.3.2                 # For using salomon bottom bar
@@ -32,7 +32,7 @@ dependencies:
   ###Showing Charts
   fl_chart: ^0.71.0                          # For using charts
   syncfusion_flutter_charts: ^29.1.38        # For using charts
-#  flutter_plot: ^0.1.0                       # For using charts
+  #  flutter_plot: ^0.1.0                       # For using charts
 
   dropdown_button2: ^2.3.9                   # For using dropdown button
   currency_picker: ^2.0.21                   # For using currency picker
