@@ -27,7 +27,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     super.initState();
     bottomBarPages = [
       ExpenseTrackerHomePage(scaffoldKey: _scaffoldKey),
-      EmiAndLoan(),
+      // EmiAndLoan(),
       MyBudgetPage(),
       InsightsPage(),
     ];

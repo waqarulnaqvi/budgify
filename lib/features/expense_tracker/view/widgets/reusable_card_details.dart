@@ -1,23 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../../core/theme/app_styles.dart';
 import '../../../../shared/view/widgets/global_widgets.dart';
 
 class ReusableCardDetails extends StatelessWidget {
   final String text;
   final Color color;
-  final IconData icon;
+  final IconData? icon;
+  final FaIconData? faIcon;
   final String amount;
   final bool isShow;
   final bool isExpense;
   final VoidCallback? onTap;
   final double iconSize;
 
-  const ReusableCardDetails(
-      {super.key,
-        required this.text,
-        this.iconSize = 20,
-        required this.icon,
-        required this.amount, required this.color, required this.isShow, this.isExpense= false, this.onTap});
+  const ReusableCardDetails({
+    super.key,
+    required this.text,
+    this.iconSize = 20,
+    required this.icon,
+    this.faIcon,
+    required this.amount,
+    required this.color,
+    required this.isShow,
+    this.isExpense = false,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,17 +36,24 @@ class ReusableCardDetails extends StatelessWidget {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Icon(
-            //   icon,
-            //   color: color,
-            //   size: iconSize,
-            // ),
-            // spacerW(5),
+            if (icon != null) ...[
+              Icon(icon, color: color, size: iconSize),
+              spacerW(5),
+            ],
+
+            if (faIcon != null) ...[
+              FaIcon(faIcon, color: color, size: iconSize),
+              spacerW(5),
+            ],
+
             Flexible(
               child: Text(
                 text,
                 style: AppStyles.descriptionPrimary(
-                    context: context, fontSize: 16, color: color),
+                  context: context,
+                  fontSize: 16,
+                  color: color,
+                ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.start,
@@ -51,14 +66,12 @@ class ReusableCardDetails extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if(isShow)
+            if (isShow)
               Padding(
                 padding: const EdgeInsets.only(top: 4),
                 child: Icon(
-                  !isExpense
-                      ? Icons.add
-                      : Icons.remove,
-                  color:color ,
+                  !isExpense ? Icons.add : Icons.remove,
+                  color: color,
                   size: 18,
                 ),
               ),
@@ -69,9 +82,11 @@ class ReusableCardDetails extends StatelessWidget {
                 child: Text(
                   amount,
                   style: AppStyles.headingPrimary(
-                      context: context, fontSize: 18, color: color),
+                    context: context,
+                    fontSize: 18,
+                    color: color,
+                  ),
                 ),
-
               ),
             ),
           ],

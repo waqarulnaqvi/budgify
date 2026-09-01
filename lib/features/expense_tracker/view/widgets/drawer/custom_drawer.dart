@@ -49,7 +49,7 @@ class CustomDrawer extends ConsumerWidget {
                     child: ReusableCircularImage(width: 90,height: 90,image: StaticAssets.budgetFlowIcon,borderWidth: 1.5,borderColor: Colors.white),
                   ),
                   spacerH(10),
-                  const Text(Constants.budgetFlow,style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),
+                  const Text(AppConstants.budgetFlow,style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                   ),
                 ],

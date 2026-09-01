@@ -21,7 +21,7 @@ class SocialMediaDialog extends StatelessWidget {
             color: colorScheme.primary.withValues(alpha: 0.1),
             shape: BoxShape.circle,
           ),
-          child: Icon(
+          child: FaIcon(
             FontAwesomeIcons.shareNodes,
             size: 38,
             color: colorScheme.primary,
@@ -55,9 +55,9 @@ class SocialMediaDialog extends StatelessWidget {
               child: ReusableIconButton(
                 title: 'Youtube',
                 socialIconSize: 20,
-                icon: FontAwesomeIcons.youtube,
+                faIconData: FontAwesomeIcons.youtube,
                 colors: AppGradients.youtubeGradient,
-                url: Constants.youtubeLink,
+                url: AppConstants.youtubeLink,
               ),
             ),
             spacerW(12),
@@ -66,9 +66,9 @@ class SocialMediaDialog extends StatelessWidget {
                 title: 'Instagram',
                 socialIconSize: 18,
                 spacerWidth: 4,
-                icon: FontAwesomeIcons.instagram,
+                faIconData: FontAwesomeIcons.instagram,
                 colors: AppGradients.instagramGradient,
-                url: Constants.instagramLink,
+                url: AppConstants.instagramLink,
               ),
             ),
           ],

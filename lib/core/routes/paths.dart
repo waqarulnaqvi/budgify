@@ -1,5 +1,5 @@
-class Paths {
-  static const String initial = '/';
+abstract final class Paths {
+  static const String splash = '/';
   static const String bottomNavBar = '/bottom_nav_bar';
   static const String moreAppsPage = '/more_apps_page';
   static const String expenseManagementPage = '/expense_management_page';
@@ -9,4 +9,5 @@ class Paths {
   static const String googleFormsInAppWebView = '/google_forms_in_app_web_view';
   static const String installmentDetailsPage = '/installment_details_page';
   static const String onboardingPage = '/onboarding_page';
+  static const String forceUpdate = '/force_update';
 }

@@ -4,7 +4,7 @@ publish_to: 'none'
 version: 2.0.0+14
 
 environment:
-  sdk: ^3.11.1
+  sdk: ^3.12.1
 
 dependencies:
   flutter:
@@ -12,7 +12,7 @@ dependencies:
   #  cupertino_icons: ^1.0.8                    # For using Cupertino icons
   flutter_icon_snackbar: ^1.1.4              # For showing animated snackbar with icons
   icons_launcher: ^3.0.0                     # For setting app launcher icon in ios and android
-  font_awesome_flutter: ^10.5.0              # For using More icons
+  font_awesome_flutter: ^11.0.0              # For using More icons (bumped — 10.x breaks on IconData being final)
   google_fonts: 6.2.1                        # For using Google Fonts
   flutter_native_splash: ^2.4.4              # For setting splash screen
   url_launcher: ^6.3.1                       # For launching URLs
@@ -42,7 +42,6 @@ dependencies:
   carousel_slider: ^5.0.0                    # For using carousel slider
 
   google_mobile_ads: ^5.3.1                  # For showing ads
-  flutter_inappwebview: ^6.1.5                # For using in-app webview
   equatable: ^2.0.7
   flutter_staggered_grid_view: ^0.7.0
   android_intent_plus: ^6.0.0
@@ -55,6 +54,13 @@ dependencies:
   firebase_core: ^3.4.0                      # For initializing Firebase
   firebase_crashlytics: any                  # For crash reporting
   firebase_analytics: any                    # For analytics
+  firebase_remote_config: ^5.5.0
+  pub_semver: ^2.2.1
+  package_info_plus: ^9.0.1
+  flutter_svg: ^2.3.0
+  flutter_screenutil: ^5.9.3
+  flutter_inappwebview: ^6.1.5
+#  firebase_messaging: ^15.2.10
 
 #  flutter_date_pickers: ^0.4.3               # For using date picker
 #  change_app_package_name: ^1.5.0            # For changing app package name
@@ -63,6 +69,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+
 flutter:
   uses-material-design: true
   assets:
@@ -92,17 +99,17 @@ icons_launcher:
     ios:
       enable: true
 
-flutter_native_splash:
-  color: "#F5F5F5"
-  image: assets/icons/splash/splash_before_android_12.png
-  branding: assets/icons/splash/mysterious_coder_branding_icon.png
-  #  color_dark: "#000000"
-  #  image_dark: assets/icons/splash_screen.jpg
-  android: true
-  ios: true
-  android_12:
-    color: "#F5F5F5"
-    image: assets/icons/splash/splash_screen_icon.png
-    branding: assets/icons/splash/mysterious_coder_branding_icon.png
+#flutter_native_splash:
+#  color: "#F5F5F5"
+#  image: assets/icons/splash/splash_before_android_12.png
+#  branding: assets/icons/splash/mysterious_coder_branding_icon.png
+#  #  color_dark: "#000000"
+#  #  image_dark: assets/icons/splash_screen.jpg
+#  android: true
+#  ios: true
+#  android_12:
+#    color: "#F5F5F5"
+#    image: assets/icons/splash/splash_screen_icon.png
+#    branding: assets/icons/splash/mysterious_coder_branding_icon.png
 #    color_dark: "#000000"
 #    image_dark: assets/icons/splash_screen.jpg

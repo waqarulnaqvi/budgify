@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../../shared/view/widgets/global_widgets.dart';
 
 class ReusableIconButton extends StatelessWidget {
   final String title;
-  final IconData icon;
+  final IconData? icon;
+  final FaIconData? faIconData;
   final String url;
   final double spacerWidth;
   final double socialMediaIconFontSize;
@@ -13,7 +15,8 @@ class ReusableIconButton extends StatelessWidget {
   const ReusableIconButton(
       {super.key,
         required this.title,
-        required this.icon,
+        this.icon,
+        this.faIconData,
         required this.colors,
         required this.url,
         this.spacerWidth = 10,
@@ -52,8 +55,16 @@ class ReusableIconButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                if(icon!=null)
                 Icon(
                   icon,
+                  color: Colors.white,
+                  size: socialIconSize,
+                ),
+
+                if(faIconData!=null)
+                FaIcon(
+                  faIconData,
                   color: Colors.white,
                   size: socialIconSize,
                 ),

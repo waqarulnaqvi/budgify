@@ -1,6 +1,7 @@
 import 'package:budgify/features/expense_tracker/utils/expense_type.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../core/theme/app_styles.dart';
 import '../../../../shared/view/widgets/global_widgets.dart';
@@ -16,11 +17,13 @@ class CustomDropDown extends StatefulWidget {
         this.leadingIcon,
         this.leadingIconSize,
         this.borderColor,
+        this.faLeadingIcon
       });
 
   final List<String> categories;
   final String selectedValue;
-  final IconData icon;
+  final FaIconData? faLeadingIcon;
+  final IconData? icon;
   final void Function(String?)? onChanged;
   final Color? color;
   final IconData? leadingIcon;
@@ -59,6 +62,9 @@ class _CustomDropDownState extends State<CustomDropDown> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       spacerW(5),
+                      if(widget.faLeadingIcon!=null)
+                        FaIcon(widget.faLeadingIcon!, color: color, size: widget.leadingIconSize)
+                      else
                       Icon(
                         widget.leadingIcon ??
                             (isExpense

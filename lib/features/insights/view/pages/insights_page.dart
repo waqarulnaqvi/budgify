@@ -190,7 +190,7 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
                     yValueMapper: (ChartData data, _) => data.amount,
                     pointColorMapper: (ChartData data, _) {
                       if (data.category.contains('Total Bal')) {
-                        return AppColors.themeLight;
+                        return AppColors.primary;
                       } else if (data.category == 'Income') {
                         return AppColors.lightGreen;
                       } else if (data.category == 'Expense') {
@@ -460,7 +460,7 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
                 ),
                 spacerH(15),
                 PlatyStoreRating(
-                  url: Constants.budgetFlowUrl,
+                  url: AppConstants.budgetFlowUrl,
                 ),
                 spacerH(15),
                 InkWell(
@@ -531,9 +531,9 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
                         Expanded(
                           child: ReusableIconButton(
                             title: 'Youtube',
-                            icon: FontAwesomeIcons.youtube,
+                            faIconData: FontAwesomeIcons.youtube,
                             colors: AppGradients.youtubeGradient,
-                            url: Constants.youtubeLink,
+                            url: AppConstants.youtubeLink,
                             spacerWidth: 15,
                           ),
                         ),
@@ -543,9 +543,9 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
                         Expanded(
                           child: ReusableIconButton(
                             title: 'Instagram',
-                            icon: FontAwesomeIcons.instagram,
+                            faIconData: FontAwesomeIcons.instagram,
                             colors: AppGradients.instagramGradient,
-                            url: Constants.instagramLink,
+                            url: AppConstants.instagramLink,
                           ),
                         ),
                       ],
@@ -560,9 +560,9 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
                         Expanded(
                           child: ReusableIconButton(
                             title: 'Facebook',
-                            icon: FontAwesomeIcons.facebook,
+                            faIconData: FontAwesomeIcons.facebook,
                             colors: AppGradients.facebookGradient,
-                            url: Constants.facebookLink,
+                            url: AppConstants.facebookLink,
                           ),
                         ),
                         SizedBox(
@@ -571,9 +571,9 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
                         Expanded(
                           child: ReusableIconButton(
                             title: 'WhatsApp',
-                            icon: FontAwesomeIcons.whatsapp,
+                            faIconData: FontAwesomeIcons.whatsapp,
                             colors: AppGradients.greenGradient,
-                            url: Constants.whatsAppChannelLink,
+                            url: AppConstants.whatsAppChannelLink,
                             socialIconSize: 28,
                           ),
                         ),

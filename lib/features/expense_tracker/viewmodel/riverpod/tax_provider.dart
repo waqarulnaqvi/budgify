@@ -145,7 +145,7 @@ final filteredTaxProvider = Provider<TaxSummary>((ref) {
         }
       } else //selectedFilter == FilterType.categoryWise.stringValue
       {
-        for (Map<String, dynamic> eachCat in Constants.mCat) {
+        for (Map<String, dynamic> eachCat in AppConstants.mCat) {
           num bal = 0.0;
           List<TrackerModel> eachCatExp = [];
           for (TrackerModel eachExp in filteredList) {

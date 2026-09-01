@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ReusableFloatingActionButton extends StatelessWidget {
   final VoidCallback onTap;
-  final IconData icon;
+  final IconData?icon;
+  final FaIconData? faIcon;
   final List<Color> colors;
   final double iconSize;
 
   const ReusableFloatingActionButton(
       {super.key,
       required this.onTap,
-      required this.icon,
+      this.icon,
+        this.faIcon,
       this.iconSize = 25,
       required this.colors});
 
@@ -28,7 +31,10 @@ class ReusableFloatingActionButton extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(15),
         ),
-        child: Icon(
+        child: faIcon!=null? FaIcon(faIcon,
+          size: iconSize,
+          color: Colors.white,
+        ): Icon(
           icon,
           size: iconSize,
           color: Colors.white,

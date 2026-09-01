@@ -12,10 +12,10 @@ class MaterialTheme {
   static ColorScheme lightScheme() {
     return  ColorScheme(
       brightness: Brightness.light,
-      primary:AppColors.themeLight,
+      primary:AppColors.primary,
       surfaceTint: Color(0xff535a92),
       onPrimary:Color.fromARGB(255, 119, 201, 196),
-      primaryContainer: AppColors.primaryContainerLight,
+      primaryContainer: AppColors.secondary,
       onPrimaryContainer: Color(0xff0d154b),
       secondary: Colors.grey.shade100,
       onSecondary:  AppColors.whiteColor,
@@ -67,10 +67,10 @@ class MaterialTheme {
   static ColorScheme lightMediumContrastScheme() {
     return ColorScheme(
       brightness: Brightness.light,
-      primary:AppColors.themeLight,
+      primary:AppColors.primary,
       surfaceTint: Color(0xff535a92),
       onPrimary:Color.fromARGB(255, 119, 201, 196),
-      primaryContainer: AppColors.primaryContainerLight,
+      primaryContainer: AppColors.secondary,
       onPrimaryContainer: Color(0xffffffff),
       secondary: Colors.grey.shade100,
       onSecondary:  AppColors.whiteColor,
@@ -123,10 +123,10 @@ class MaterialTheme {
   static ColorScheme lightHighContrastScheme() {
     return  ColorScheme(
       brightness: Brightness.light,
-      primary:AppColors.themeLight,
+      primary:AppColors.primary,
       surfaceTint: Color(0xff535a92),
       onPrimary:Color.fromARGB(255, 119, 201, 196),
-      primaryContainer: AppColors.primaryContainerLight,
+      primaryContainer: AppColors.secondary,
       onPrimaryContainer: Color(0xffffffff),
       secondary: Colors.grey.shade100,
       onSecondary:  AppColors.whiteColor,
@@ -178,11 +178,11 @@ class MaterialTheme {
   static ColorScheme darkScheme() {
     return  ColorScheme(
       brightness: Brightness.dark,
-      primary:AppColors.themeDark,
+      primary:AppColors.primaryDark,
       // primary:  Color.fromARGB(255, 119, 201, 196),
       surfaceTint: Color(0xffbcc2ff),
       onPrimary: Color.fromARGB(255, 52, 191, 138),
-      primaryContainer: AppColors.primaryContainerDark,
+      primaryContainer: AppColors.secondaryDark,
       onPrimaryContainer: Color(0xffdfe0ff),
       secondary: Colors.grey.shade800,
       onSecondary: Colors.grey.shade800,
@@ -234,11 +234,11 @@ class MaterialTheme {
   static ColorScheme darkMediumContrastScheme() {
     return ColorScheme(
       brightness: Brightness.dark,
-      primary:AppColors.themeDark,
+      primary:AppColors.primaryDark,
       // primary: Color.fromARGB(255, 119, 201, 196),
       surfaceTint: Color(0xffbcc2ff),
       onPrimary: Color.fromARGB(255, 52, 191, 138),
-      primaryContainer: AppColors.primaryContainerDark,
+      primaryContainer: AppColors.secondaryDark,
       onPrimaryContainer: Color(0xff000000),
       secondary: Colors.grey.shade800,
       onSecondary: Colors.grey.shade800,
@@ -290,11 +290,11 @@ class MaterialTheme {
   static ColorScheme darkHighContrastScheme() {
     return ColorScheme(
       brightness: Brightness.dark,
-      primary:AppColors.themeDark,
+      primary:AppColors.primaryDark,
       // primary: Color.fromARGB(255, 119, 201, 196),
       surfaceTint: Color(0xffbcc2ff),
       onPrimary: Color.fromARGB(255, 52, 191, 138),
-      primaryContainer: AppColors.primaryContainerDark,
+      primaryContainer: AppColors.secondaryDark,
       onPrimaryContainer: Color(0xff000000),
       secondary: Colors.grey.shade800,
       onSecondary: Colors.grey.shade800,

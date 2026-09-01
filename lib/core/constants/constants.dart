@@ -1,5 +1,7 @@
-class Constants {
+abstract final class AppConstants {
   static const String brandName = 'Mysterious Coder';
+  static const String packageName = "com.mysteriouscoder.budgetflow";
+
 
   //All apps titles:
   static const String brainBooster = 'Brain Booster: Sound Therapy';
@@ -8,6 +10,13 @@ class Constants {
   static const String mazedarHindiJokes = 'Mazedar Hindi Jokes';
   static const String noteMaster = 'Note Master: Offline Organizer';
   static const String budgetFlow = 'BudgetFlow: Expense & Budget';
+
+  /// Android or iOS
+  static const String androidAppId = "com.mysteriouscoder.budgetflow";
+  static const String iosAppId = "com.mysteriouscoder.budgetflow";
+
+  static String playStoreUrlMaker({String appId = packageName}) =>
+      'https://play.google.com/store/apps/details?id=$appId';
 
   //App apps descriptions:
   static const String brainBoosterDescription =

@@ -5,45 +5,45 @@ import '../model/more_apps_model.dart';
 
 List<MoreAppsModel> moreAppsContentsList=[
   MoreAppsModel(
-      title: Constants.brainBooster,
+      title: AppConstants.brainBooster,
       image: StaticAssets.brainBoosterIcon,
-      description: Constants.brainBoosterDescription,
+      description: AppConstants.brainBoosterDescription,
       colors: AppGradients.blueMyAppGradient,
-      url: Constants.brainBoosterUrl
+      url: AppConstants.brainBoosterUrl
   ),
   MoreAppsModel(
-      title: Constants.classicWingedBird,
+      title: AppConstants.classicWingedBird,
       image: StaticAssets.classicWingedBirdIcon,
-      description: Constants.classicWingedBirdDescription,
+      description: AppConstants.classicWingedBirdDescription,
       colors: AppGradients.blueMyAppGradient,
-      url: Constants.classicWingedBirdUrl
+      url: AppConstants.classicWingedBirdUrl
   ),
   MoreAppsModel(
-      title: Constants.hindiShayariHub,
+      title: AppConstants.hindiShayariHub,
       image: StaticAssets.hindiShayariHubIcon,
-      description: Constants.hindiShayariHubDescription,
+      description: AppConstants.hindiShayariHubDescription,
       colors: AppGradients.purpleMyAppGradient,
-      url: Constants.hindiShayariHubUrl
+      url: AppConstants.hindiShayariHubUrl
   ),
   MoreAppsModel(
-      title: Constants.mazedarHindiJokes,
+      title: AppConstants.mazedarHindiJokes,
       image: StaticAssets.mazedarHindiJokesIcon,
-      description: Constants.mazedarHindiJokesDescription,
+      description: AppConstants.mazedarHindiJokesDescription,
       colors: AppGradients.orangeMyAppGradient,
-      url: Constants.mazedarHindiJokesUrl
+      url: AppConstants.mazedarHindiJokesUrl
   ),
   MoreAppsModel(
-      title: Constants.noteMaster,
+      title: AppConstants.noteMaster,
       image: StaticAssets.noteMasterIcon,
-      description: Constants.noteMasterDescription,
+      description: AppConstants.noteMasterDescription,
       colors: AppGradients.orangeMyAppGradient,
-      url: Constants.noteMasterUrl
+      url: AppConstants.noteMasterUrl
   ),
   MoreAppsModel(
-      title: Constants.budgetFlow,
+      title: AppConstants.budgetFlow,
       image: StaticAssets.budgetFlowIcon,
-      description: Constants.budgetFlowDescription,
+      description: AppConstants.budgetFlowDescription,
       colors: AppGradients.skyBlueMyAppGradient,
-      url: Constants.budgetFlowUrl
+      url: AppConstants.budgetFlowUrl
   ),
 ];

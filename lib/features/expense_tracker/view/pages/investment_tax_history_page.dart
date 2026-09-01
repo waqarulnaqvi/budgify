@@ -78,7 +78,7 @@ class InvestmentTaxHistoryPage extends StatelessWidget {
                           trackerCategory: ExpenseType.investment.intValue,
                           percentage: 0));
                 },
-                icon: FontAwesomeIcons.sackDollar,
+                faIcon: FontAwesomeIcons.sackDollar,
                 colors: AppGradients.skyBlueGradient));
   }
 }

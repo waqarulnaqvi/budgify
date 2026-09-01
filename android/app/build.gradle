@@ -1,10 +1,11 @@
 plugins {
     id "com.android.application"
-    // START: FlutterFire Configuration
+
+    // Firebase
     id "com.google.firebase.crashlytics"
     id "com.google.gms.google-services"
-    // END: FlutterFire Configuration
-    id "kotlin-android"
+
+    id "org.jetbrains.kotlin.android"
     id "dev.flutter.flutter-gradle-plugin"
 }
 
@@ -16,20 +17,19 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 
-
 android {
     namespace = "com.mysteriouscoder.budgetflow"
-    // Required for latest Flutter plugins
-    compileSdk = 36
-    ndkVersion = "28.2.13676358" // fix the 16KB ndk version issue
 
+    compileSdk = 36
+
+    // Required for 16 KB page-size support
+    ndkVersion = "28.2.13676358"
 
     packagingOptions {
         jniLibs {
             useLegacyPackaging true
         }
     }
-
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -38,15 +38,19 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8
+        jvmTarget = "1.8"
     }
 
     defaultConfig {
         applicationId = "com.mysteriouscoder.budgetflow"
-        minSdk = flutter.minSdkVersion
+
+        minSdkVersion = flutter.minSdkVersion
+
         targetSdk = 36
+
         versionCode = flutter.versionCode.toInteger()
         versionName = flutter.versionName
+
         ndk {
             abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
         }
@@ -55,23 +59,33 @@ android {
     signingConfigs {
         release {
             if (keystorePropertiesFile.exists()) {
-                keyAlias keystoreProperties['keyAlias']
-                keyPassword keystoreProperties['keyPassword']
-                storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
-                storePassword keystoreProperties['storePassword']
+                keyAlias = keystoreProperties["keyAlias"]
+                keyPassword = keystoreProperties["keyPassword"]
+
+                storeFile = keystoreProperties["storeFile"]
+                        ? file(keystoreProperties["storeFile"])
+                        : null
+
+                storePassword = keystoreProperties["storePassword"]
             }
         }
     }
 
     buildTypes {
         release {
-            signingConfig signingConfigs.release
+            signingConfig = signingConfigs.release
+
             ndk {
-                debugSymbolLevel = 'FULL'
+                debugSymbolLevel = "FULL"
             }
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            minifyEnabled = true
+            shrinkResources = true
+
+            proguardFiles(
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
+            )
         }
     }
 }
@@ -81,8 +95,10 @@ flutter {
 }
 
 dependencies {
-//     Firebase
+    // Firebase
     implementation "com.google.firebase:firebase-crashlytics-ktx:19.4.4"
     implementation "com.google.firebase:firebase-analytics-ktx:22.5.0"
+
+    // Java 8+ API desugaring
     coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.1.5"
 }

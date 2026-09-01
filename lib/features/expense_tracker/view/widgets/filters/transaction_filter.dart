@@ -36,7 +36,7 @@ class _TransactionFilterState extends State<TransactionFilter> {
               }
             },
             selectedValue: selectedValue,
-            leadingIcon: FontAwesomeIcons.receipt,
+            faLeadingIcon: FontAwesomeIcons.receipt,
             color: theme.onSurface,
             borderColor: theme.onSurface,
           );

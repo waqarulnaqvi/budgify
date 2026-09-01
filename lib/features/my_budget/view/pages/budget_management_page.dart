@@ -123,7 +123,7 @@ class _BudgetManagementPageState extends ConsumerState<BudgetManagementPage> {
               padding: const EdgeInsets.only(top: 10, right: 10, bottom: 2),
               child: InkWell(
                   onTap: () =>  onSave(false),
-                  child: Icon(
+                  child: FaIcon(
                     FontAwesomeIcons.check,
                     size: 30,
                     color: Colors.black,

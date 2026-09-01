@@ -3,12 +3,14 @@ import 'package:budgify/features/expense_tracker/model/card_model.dart';
 import 'package:currency_picker/currency_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../../../shared/view/widgets/global_widgets.dart';
 import '../../../viewmodel/riverpod/currency_provider.dart';
 import '../reusable_card_details.dart';
 
 class ReusableCardWidget extends ConsumerWidget {
-  final IconData icon;
+  final IconData? icon;
+  final FaIconData? faIcon;
   final CardModel section1;
   final CardModel section2;
   final CardModel section3;
@@ -17,7 +19,8 @@ class ReusableCardWidget extends ConsumerWidget {
 
   const ReusableCardWidget({
     super.key,
-    required this.icon,
+   this.icon,
+    this.faIcon,
     required this.section1,
     required this.section2,
     required this.section3,
@@ -107,6 +110,7 @@ class ReusableCardWidget extends ConsumerWidget {
                     color: section1Color,
                     text: section1.name,
                     icon: icon,
+                    faIcon: faIcon,
                     amount: "$currency${section1Value.toStringAsFixed(2)}",
                     isShow: false,
                     // isExpense: section3Value < 0,
@@ -120,6 +124,7 @@ class ReusableCardWidget extends ConsumerWidget {
                     text: section2.name,
                     color: Colors.black,
                     icon: icon,
+                    faIcon: faIcon,
                     amount: "$currency${section2Value.abs()}",
                     isShow: false,
                     iconSize: 18,
@@ -137,6 +142,7 @@ class ReusableCardWidget extends ConsumerWidget {
                     text: section3.name,
                     color: section3Color,
                     icon: icon,
+                    faIcon: faIcon,
                     amount: "$currency${section3Value.abs()}",
                     isShow: isShowCondition(section3Value),
                     isExpense: section3Value < 0,
@@ -150,6 +156,7 @@ class ReusableCardWidget extends ConsumerWidget {
                     text: section4.name,
                     color: section4Color,
                     icon: icon,
+                    faIcon: faIcon,
                     amount: "${section4Value.abs()}%",
                     isShow: isShowCondition(section4Value),
                     isExpense: section3Value < 0,

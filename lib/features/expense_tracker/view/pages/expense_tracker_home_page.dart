@@ -195,7 +195,7 @@ class _ExpenseTrackerHomePageState extends ConsumerState<ExpenseTrackerHomePage>
               onTap: () {
                 widget.scaffoldKey.currentState?.openEndDrawer();
               },
-              child: Icon(
+              child: FaIcon(
                 FontAwesomeIcons.barsStaggered,
                 color: Colors.white,
                 size: 20,

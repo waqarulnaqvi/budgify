@@ -25,7 +25,7 @@ Widget footerText(BuildContext context) {
             ),
             recognizer: TapGestureRecognizer()
               ..onTap = () async {
-              await openUrl(url: Constants.budgetFlowPrivacyPolicy,isExternal: true, context: context);
+              await openUrl(url: AppConstants.budgetFlowPrivacyPolicy,isExternal: true, context: context);
               },
           ),
           const TextSpan(text: ' and '),
@@ -39,7 +39,7 @@ Widget footerText(BuildContext context) {
             ),
             recognizer: TapGestureRecognizer()
               ..onTap = () async {
-                await openUrl(url: Constants.budgetFlowPrivacyPolicy,isExternal: true, context: context);
+                await openUrl(url: AppConstants.budgetFlowPrivacyPolicy,isExternal: true, context: context);
               },
           ),
           const TextSpan(text: '.'),

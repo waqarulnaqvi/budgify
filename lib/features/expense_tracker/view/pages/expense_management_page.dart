@@ -95,7 +95,7 @@ class _ExpenseManagementPageState extends ConsumerState<ExpenseManagementPage> {
                 Expanded(
                   child: GridView.builder(
                       padding: const EdgeInsets.symmetric(vertical: 10),
-                      itemCount: Constants.mCat.length,
+                      itemCount: AppConstants.mCat.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 4),
                       itemBuilder: (_, index) {
@@ -128,7 +128,7 @@ class _ExpenseManagementPageState extends ConsumerState<ExpenseManagementPage> {
                                 children: [
                                   CircleAvatar(
                                     backgroundImage: AssetImage(
-                                      Constants.mCat[index]["catImage"],
+                                      AppConstants.mCat[index]["catImage"],
                                     ),
                                     backgroundColor:
                                         theme.primary.withValues(alpha: 0.4),
@@ -136,7 +136,7 @@ class _ExpenseManagementPageState extends ConsumerState<ExpenseManagementPage> {
                                   ),
                                   spacerH(5),
                                   Text(
-                                    Constants.mCat[index]["catName"],
+                                    AppConstants.mCat[index]["catName"],
                                     style: AppStyles.descriptionPrimary(
                                         context: context, fontSize: 10),
                                     overflow: TextOverflow.ellipsis,
@@ -330,7 +330,7 @@ class _ExpenseManagementPageState extends ConsumerState<ExpenseManagementPage> {
                               chooseCategory != -1
                                   ? CircleAvatar(
                                       backgroundImage: AssetImage(
-                                        Constants.mCat[chooseCategory]
+                                        AppConstants.mCat[chooseCategory]
                                             ["catImage"],
                                       ),
                                       backgroundColor:
@@ -344,7 +344,7 @@ class _ExpenseManagementPageState extends ConsumerState<ExpenseManagementPage> {
                               spacerW(10),
                               Text(
                                 chooseCategory != -1
-                                    ? Constants.mCat[chooseCategory]["catName"]
+                                    ? AppConstants.mCat[chooseCategory]["catName"]
                                     : "Choose Category",
                                 style: AppStyles.descriptionPrimary(
                                     context: context),

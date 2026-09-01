@@ -2,7 +2,9 @@ import 'package:budgify/core/routes/paths.dart';
 import 'package:budgify/features/emi_and_loan/view/pages/installment_details_page.dart';
 import 'package:budgify/features/expense_tracker/view/pages/all_transaction_page.dart';
 import 'package:budgify/features/expense_tracker/view/pages/expense_management_page.dart';
+import 'package:budgify/features/force_update_maintenance/presentation/pages/force_update_page.dart';
 import 'package:budgify/features/onboard/view/pages/on_boarding_page.dart';
+import 'package:budgify/features/splash/view/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 import '../../features/expense_tracker/model/tracker_model.dart';
 import '../../features/expense_tracker/view/pages/investment_tax_history_page.dart';
@@ -15,14 +17,17 @@ import '../../shared/view/widgets/bottom_nav_bar/bottom_nav_bar.dart';
 class AppRoutes {
   static Route? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case Paths.initial:
-        return MaterialPageRoute(builder: (context) => BottomNavBar());
+      case Paths.splash:
+        return MaterialPageRoute(builder: (context) => SplashPage());
 
       case Paths.onboardingPage:
         return MaterialPageRoute(builder: (context) => OnboardingPage());
 
       case Paths.bottomNavBar:
         return MaterialPageRoute(builder: (context) => BottomNavBar());
+
+      case Paths.forceUpdate:
+        return MaterialPageRoute(builder: (context) => ForceUpdatePage());
 
       case Paths.moreAppsPage:
         return MaterialPageRoute(builder: (context) => MoreAppsPage());

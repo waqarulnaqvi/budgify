@@ -36,7 +36,7 @@ class _GoogleFormInAppWebViewState extends ConsumerState<GoogleFormInAppWebView>
     return Stack(
       children: [
         InAppWebView(
-          initialUrlRequest: URLRequest(url: WebUri(Constants.googleFeedbackFormUrl)),
+          initialUrlRequest: URLRequest(url: WebUri(AppConstants.googleFeedbackFormUrl)),
           onWebViewCreated: (controller) {
             webViewController = controller;
           },

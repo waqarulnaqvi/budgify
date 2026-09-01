@@ -12,7 +12,7 @@ import '../view/widgets/dialog/reusable_dialog_class.dart';
 List<DrawerModel> drawerContentsList(BuildContext context, WidgetRef ref) => [
   DrawerModel(
     title: "App Tour",
-    icon: FontAwesomeIcons.route,
+    faIcon:  FontAwesomeIcons.route,
     onTap: () {
       Navigator.pop(context);
       Navigator.pushNamedAndRemoveUntil(
@@ -65,7 +65,7 @@ List<DrawerModel> drawerContentsList(BuildContext context, WidgetRef ref) => [
     icon: Icons.description_outlined,
     onTap: () async {
       Navigator.pop(context);
-      await openUrl(url: Constants.budgetFlowUrl, context: context);
+      await openUrl(url: AppConstants.budgetFlowUrl, context: context);
     },
   ),
   DrawerModel(
@@ -81,7 +81,7 @@ List<DrawerModel> drawerContentsList(BuildContext context, WidgetRef ref) => [
     icon: Icons.privacy_tip,
     onTap: () async {
       Navigator.pop(context);
-      await openUrl(url: Constants.budgetFlowPrivacyPolicy, context: context);
+      await openUrl(url: AppConstants.budgetFlowPrivacyPolicy, context: context);
     },
   ),
   DrawerModel(
@@ -97,7 +97,7 @@ List<DrawerModel> drawerContentsList(BuildContext context, WidgetRef ref) => [
 Future<void> shareAppLink() async {
   try {
     final String message =
-        "Discover a powerful solution for managing your expenses and budget effectively:\n\n${Constants.budgetFlowUrl}";
+        "Discover a powerful solution for managing your expenses and budget effectively:\n\n${AppConstants.budgetFlowUrl}";
     await Share.share(message);
   } catch (e) {
     if (kDebugMode) {
