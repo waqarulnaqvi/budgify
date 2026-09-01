@@ -1,7 +1,7 @@
 name: budgify
 description: A modern Flutter To-Do application with reminders, filters, and offline support.
 publish_to: 'none'
-version: 2.0.0+13
+version: 2.0.0+14
 
 environment:
   sdk: ^3.11.1
