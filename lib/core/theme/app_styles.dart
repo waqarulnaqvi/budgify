@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'app_colors.dart';
 
-class AppStyles {
+abstract final class AppStyles {
   // Text Styles
   static TextStyle headingPrimary({double? fontSize , FontWeight fontWeight = FontWeight.w600, required BuildContext context,Color? color}) {
     return TextStyle(
@@ -83,7 +83,7 @@ class AppStyles {
 
   // Box Shadows
   static final BoxShadow primaryColorShadow = BoxShadow(
-    color: AppColors.themeDark.withAlpha(100),
+    color: AppColors.primaryDark.withAlpha(100),
     blurRadius: 12.0,
     offset: const Offset(0.0, 0.0),
   );
@@ -95,4 +95,111 @@ class AppStyles {
   );
 
 
+}
+
+
+extension AppTextExtension on BuildContext {
+
+  /// Base TextStyle for the entire app
+  TextStyle appTextStyle({
+    required double fontSize,
+    required FontWeight fontWeight,
+    FontStyle? fontStyle,
+    Color? color,
+    String? fontFamily,
+    double? letterSpacing,
+    double? wordSpacing,
+    double? height,
+    TextDecoration? decoration,
+    Color? decorationColor,
+    TextDecorationStyle? decorationStyle,
+    double? decorationThickness,
+    List<Shadow>? shadows,
+    List<FontFeature>? fontFeatures,
+    TextBaseline? textBaseline,
+    Paint? foreground,
+    Paint? background,
+  }) {
+    final theme = Theme.of(this);
+
+    return TextStyle(
+      fontSize: fontSize ,
+      fontWeight: fontWeight ,
+      fontStyle: fontStyle,
+      color: color ?? theme.colorScheme.onSurface,
+      fontFamily: fontFamily ?? 'Montserrat',
+      letterSpacing: letterSpacing,
+      wordSpacing: wordSpacing,
+      height: height,
+      decoration: decoration,
+      decorationColor: decorationColor,
+      decorationStyle: decorationStyle,
+      decorationThickness: decorationThickness,
+      shadows: shadows,
+      fontFeatures: fontFeatures,
+      textBaseline: textBaseline,
+      foreground: foreground,
+      background: background,
+    );
+  }
+
+// /// Reusable Text widget built on top of appTextStyle
+// Text reusableText({
+//   required String text,
+//   required double fontSize,
+//   required FontWeight fontWeight,
+//   FontStyle? fontStyle,
+//   Color? color,
+//   String? fontFamily,
+//   double? letterSpacing,
+//   double? wordSpacing,
+//   double? height,
+//   TextDecoration? decoration,
+//   Color? decorationColor,
+//   TextDecorationStyle? decorationStyle,
+//   double? decorationThickness,
+//   List<Shadow>? shadows,
+//   List<FontFeature>? fontFeatures,
+//   bool isEllipsis = false,
+//   int? maxLines,
+//   TextAlign? textAlign,
+//   TextOverflow? overflow,
+//   TextDirection? textDirection,
+//   Locale? locale,
+//   StrutStyle? strutStyle,
+//   TextWidthBasis? textWidthBasis,
+//   TextHeightBehavior? textHeightBehavior,
+//   Paint? foreground,
+//   Paint? background,
+// }) {
+//   return Text(
+//     text,
+//     style: appTextStyle(
+//       fontSize: fontSize,
+//       fontWeight: fontWeight,
+//       fontStyle: fontStyle,
+//       color: color,
+//       fontFamily: fontFamily,
+//       letterSpacing: letterSpacing,
+//       wordSpacing: wordSpacing,
+//       height: height,
+//       decoration: decoration,
+//       decorationColor: decorationColor,
+//       decorationStyle: decorationStyle,
+//       decorationThickness: decorationThickness,
+//       shadows: shadows,
+//       fontFeatures: fontFeatures,
+//       foreground: foreground,
+//       background: background,
+//     ),
+//     textAlign: textAlign,
+//     overflow: overflow ?? (isEllipsis ? TextOverflow.ellipsis : null),
+//     maxLines: isEllipsis ? (maxLines ?? 1) : maxLines,
+//     textDirection: textDirection,
+//     locale: locale,
+//     strutStyle: strutStyle,
+//     textWidthBasis: textWidthBasis,
+//     textHeightBehavior: textHeightBehavior,
+//   );
+// }
 }

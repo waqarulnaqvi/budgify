@@ -72,7 +72,7 @@ class _ReusableTextFieldState extends State<ReusableTextField> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context).colorScheme;
-    return TextField(
+    return TextFormField(
       onChanged: (value) {
         if (widget.onChanged != null) {
           widget.onChanged!(value);

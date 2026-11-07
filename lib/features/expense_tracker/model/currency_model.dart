@@ -12,11 +12,11 @@ class CurrencyModel {
   });
 
 
-  factory CurrencyModel.fromJson(Currency currency) {
-    return CurrencyModel(
-      name: currency.name,
-      code: currency.code,
-      symbol: currency.symbol,
-    );
-  }
+  // factory CurrencyModel.fromJson(Currency currency) {
+  //   return CurrencyModel(
+  //     name: currency.name,
+  //     code: currency.code,
+  //     symbol: currency.symbol,
+  //   );
+  // }
 }

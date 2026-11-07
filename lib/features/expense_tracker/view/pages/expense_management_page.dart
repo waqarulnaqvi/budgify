@@ -1,7 +1,7 @@
 import 'package:budgify/core/constants/constants.dart';
 import 'package:budgify/features/expense_tracker/model/card_model.dart';
-import 'package:budgify/features/expense_tracker/model/date_model.dart';
 import 'package:budgify/features/expense_tracker/viewmodel/riverpod/on_changed_value_provider.dart';
+import 'package:budgify/shared/view/widgets/ads/banner_ads.dart';
 import 'package:budgify/shared/view/widgets/containers/reusable_folded_corner_container.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
 import 'package:budgify/core/theme/app_styles.dart';
@@ -13,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_icon_snackbar/flutter_icon_snackbar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../model/currency_model.dart';
 import '../../model/tracker_model.dart';
 import '../../utils/expense_type.dart';
 import '../../viewmodel/riverpod/currency_provider.dart';
@@ -96,7 +95,7 @@ class _ExpenseManagementPageState extends ConsumerState<ExpenseManagementPage> {
                 Expanded(
                   child: GridView.builder(
                       padding: const EdgeInsets.symmetric(vertical: 10),
-                      itemCount: Constants.mCat.length,
+                      itemCount: AppConstants.mCat.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 4),
                       itemBuilder: (_, index) {
@@ -129,7 +128,7 @@ class _ExpenseManagementPageState extends ConsumerState<ExpenseManagementPage> {
                                 children: [
                                   CircleAvatar(
                                     backgroundImage: AssetImage(
-                                      Constants.mCat[index]["catImage"],
+                                      AppConstants.mCat[index]["catImage"],
                                     ),
                                     backgroundColor:
                                         theme.primary.withValues(alpha: 0.4),
@@ -137,7 +136,7 @@ class _ExpenseManagementPageState extends ConsumerState<ExpenseManagementPage> {
                                   ),
                                   spacerH(5),
                                   Text(
-                                    Constants.mCat[index]["catName"],
+                                    AppConstants.mCat[index]["catName"],
                                     style: AppStyles.descriptionPrimary(
                                         context: context, fontSize: 10),
                                     overflow: TextOverflow.ellipsis,
@@ -167,8 +166,8 @@ class _ExpenseManagementPageState extends ConsumerState<ExpenseManagementPage> {
   Widget build(BuildContext context) {
     final selectedValue = ref.watch(selectedValueProvider);
     final rProvider = ref.read(currencyProvider.notifier);
-    final currency = ref.watch(currencyProvider).symbol;
-    final dateRef = ref.watch(dateProvider);
+    final currency = ref.watch(currencyProvider).value?.symbol ?? '₹';
+    final dateRef = ref.watch(dateProvider).value;
     final isTaxPage = selectedValue == ExpenseType.tax.value;
     final isShowReturn = selectedValue == ExpenseType.investment.value ||
         selectedValue == ExpenseType.tax.value;
@@ -191,6 +190,18 @@ class _ExpenseManagementPageState extends ConsumerState<ExpenseManagementPage> {
     final theme = Theme.of(context).colorScheme;
     final onChangedValue = ref.read(onChangeValueProvider);
     final onChangedProvider = ref.read(onChangedInvestmentTaxProvider);
+
+
+    var beforeOperationAmount = double.parse(onChangedProvider.beforeOperationAmount);
+    var changedAmount = double.parse(onChangedProvider.changedAmount);
+    String afterOperationAmount = "0.0";
+
+    /// This is the logic to calculate the after operation amount based on whether it's a tax page or investment page.
+    if (isTaxPage) {
+      afterOperationAmount = (beforeOperationAmount - changedAmount).toStringAsFixed(2);
+    } else {
+      afterOperationAmount = (beforeOperationAmount + changedAmount).toStringAsFixed(2);
+    }
     // final isDarkTheme = MediaQuery.of(context).platformBrightness ==
     //     Brightness.dark;
 
@@ -213,11 +224,11 @@ class _ExpenseManagementPageState extends ConsumerState<ExpenseManagementPage> {
                     section1: CardModel(
                         name: isTaxPage ? "After Tax:" : "Current Amount:",
                         value:
-                            "$currency${onChangedProvider.beforeOperationAmount}"),
+                            "$currency$afterOperationAmount"),
                     section2: CardModel(
                         name: isTaxPage ? "Before Tax:" : "Invested Amount:",
                         value:
-                            "$currency${onChangedProvider.afterOperationAmount}"),
+                            "$currency${onChangedProvider.beforeOperationAmount}"),
                     section3: CardModel(
                         name: isTaxPage ? "Total Tax:" : "Total Returns:",
                         value: "$currency${onChangedProvider.changedAmount}"),
@@ -251,8 +262,14 @@ class _ExpenseManagementPageState extends ConsumerState<ExpenseManagementPage> {
                         showFlag: true,
                         showCurrencyName: true,
                         showCurrencyCode: true,
-                        onSelect: (Currency currency) {
-                          rProvider.state = CurrencyModel.fromJson(currency);
+                        onSelect: (Currency currency) async {
+                          await rProvider.currencyFilter(
+                            name: currency.name,
+                            code: currency.code,
+                            symbol: currency.symbol,
+                          );
+
+                          // rProvider.state = CurrencyModel.fromJson(currency);
                           // print(currency.name);
                         },
                       );
@@ -313,7 +330,7 @@ class _ExpenseManagementPageState extends ConsumerState<ExpenseManagementPage> {
                               chooseCategory != -1
                                   ? CircleAvatar(
                                       backgroundImage: AssetImage(
-                                        Constants.mCat[chooseCategory]
+                                        AppConstants.mCat[chooseCategory]
                                             ["catImage"],
                                       ),
                                       backgroundColor:
@@ -327,7 +344,7 @@ class _ExpenseManagementPageState extends ConsumerState<ExpenseManagementPage> {
                               spacerW(10),
                               Text(
                                 chooseCategory != -1
-                                    ? Constants.mCat[chooseCategory]["catName"]
+                                    ? AppConstants.mCat[chooseCategory]["catName"]
                                     : "Choose Category",
                                 style: AppStyles.descriptionPrimary(
                                     context: context),
@@ -361,7 +378,6 @@ class _ExpenseManagementPageState extends ConsumerState<ExpenseManagementPage> {
                       onChanged: (value) {
                         ref.read(onChangeValueProvider.notifier).state =
                             onChangedValue.copyWith(
-                          beforeOperationAmount: value,
                           percentage: percentageController.text,
                           isTaxPage: isTaxPage,
                         );
@@ -413,7 +429,7 @@ class _ExpenseManagementPageState extends ConsumerState<ExpenseManagementPage> {
                                 percentageController.text.isEmpty
                                     ? "0"
                                     : percentageController.text),
-                            date: dateRef.selectedDate ??
+                            date: dateRef?.selectedDate ??
                                 formatDate(DateTime.now()),
                             amount: double.parse(amountController.text),
                             trackerCategory: ExpenseType.values
@@ -427,7 +443,7 @@ class _ExpenseManagementPageState extends ConsumerState<ExpenseManagementPage> {
                             title: titleController.text.isEmpty
                                 ? ""
                                 : titleController.text,
-                            date: dateRef.selectedDate ??
+                            date: dateRef?.selectedDate ??
                                 formatDate(DateTime.now()),
                             percentage: double.parse(
                                 percentageController.text.isEmpty
@@ -457,7 +473,9 @@ class _ExpenseManagementPageState extends ConsumerState<ExpenseManagementPage> {
                 ],
               ),
             ),
-            spacerH(80),
+            spacerH(30),
+            BannerAdWidget(),
+            spacerH(50),
           ],
         ),
       ),
@@ -513,9 +531,13 @@ class _ExpenseManagementPageState extends ConsumerState<ExpenseManagementPage> {
                       //     DateTime.now().add(const Duration(days: 365 * 30)),
                       // selectedDate: DateTime.now(),
                       locale: const Locale('en', 'US'),
-                      onDateTimeChanged: (DateTime value) {
-                        ref.read(dateProvider.notifier).state =
-                            dateRef.copyWith(selectedDate: formatDate(value));
+                      onDateTimeChanged: (DateTime value) async {
+                        await ref
+                            .read(dateProvider.notifier).selectedDate(formatDate(value));
+                        
+                        
+                        // ref.read(dateProvider.notifier).state =
+                        //     dateRef.copyWith(selectedDate: formatDate(value));
                       },
                     ),
                   ),
@@ -524,10 +546,15 @@ class _ExpenseManagementPageState extends ConsumerState<ExpenseManagementPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         InkWell(
-                          onTap: () {
+                          onTap: () async {
                             Navigator.of(context).pop();
-                            ref.read(dateProvider.notifier).state = DateModel(
-                                selectedDate: formatDate(DateTime.now()));
+                            await ref
+                                .read(dateProvider.notifier)
+                                .selectedDate(formatDate(DateTime.now()));
+
+
+                            // ref.read(dateProvider.notifier).state = DateModel(
+                            //     selectedDate: formatDate(DateTime.now()));
                           },
                           child: Card(
                               elevation: 4,

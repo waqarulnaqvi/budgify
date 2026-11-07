@@ -1,5 +1,7 @@
-class Constants {
+abstract final class AppConstants {
   static const String brandName = 'Mysterious Coder';
+  static const String packageName = "com.mysteriouscoder.budgetflow";
+
 
   //All apps titles:
   static const String brainBooster = 'Brain Booster: Sound Therapy';
@@ -8,6 +10,13 @@ class Constants {
   static const String mazedarHindiJokes = 'Mazedar Hindi Jokes';
   static const String noteMaster = 'Note Master: Offline Organizer';
   static const String budgetFlow = 'BudgetFlow: Expense & Budget';
+
+  /// Android or iOS
+  static const String androidAppId = "com.mysteriouscoder.budgetflow";
+  static const String iosAppId = "com.mysteriouscoder.budgetflow";
+
+  static String playStoreUrlMaker({String appId = packageName}) =>
+      'https://play.google.com/store/apps/details?id=$appId';
 
   //App apps descriptions:
   static const String brainBoosterDescription =
@@ -37,6 +46,10 @@ class Constants {
   static const String budgetFlowUrl =
       'https://play.google.com/store/apps/details?id=com.mysteriouscoder.budgetflow';
 
+  //Google Forms Feedback URL
+  static const String googleFeedbackFormUrl =
+      "https://docs.google.com/forms/d/e/1FAIpQLSeEc7kuPDXezxgyOMAllpT8StrCcPAE0NT5yW5fJ0kGPjsb1w/viewform?usp=header";
+
   //Social Media Links
   static const String youtubeLink =
       "https://youtube.com/@mysterious_coder?si=nmKdCfauVOj0LApZ";
@@ -46,6 +59,8 @@ class Constants {
       "https://www.facebook.com/share/1C6RSPZgnq/";
   static const String whatsAppChannelLink =
       "https://whatsapp.com/channel/0029Vb1Se9gKrWR1TBGlCs1x";
+
+  static const String budgetFlowPrivacyPolicy="https://mysteriouscoder.com/privacypolicy/budgetflow";
 
   static const List<Map<String, dynamic>> mCat = [
     {

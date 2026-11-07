@@ -1,0 +1,2 @@
+D:/Flutter/FlutterProjects/Play Store and Ios apps/budgify/android/app/.cxx/RelWithDebInfo/3v5c4q2v/arm64-v8a/CMakeFiles/edit_cache.dir
+D:/Flutter/FlutterProjects/Play Store and Ios apps/budgify/android/app/.cxx/RelWithDebInfo/3v5c4q2v/arm64-v8a/CMakeFiles/rebuild_cache.dir

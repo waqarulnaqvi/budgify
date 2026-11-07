@@ -34,7 +34,7 @@ class _InvestmentFilterState extends State<InvestmentFilter> {
               }
             },
             selectedValue: selectedValue,
-            leadingIcon: FontAwesomeIcons.sackDollar,
+            faLeadingIcon: FontAwesomeIcons.sackDollar,
             color: theme.onSurface,
             borderColor: theme.onSurface,
           );

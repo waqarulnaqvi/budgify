@@ -23,7 +23,7 @@ class ReusableInfo extends ConsumerWidget {
         ? ref.watch(filteredTaxProvider).trackerModel
         : ref.watch(filteredInvestmentProvider).trackerModel;
     final isLoading = ref.watch(expenseTrackerProviderOriginal.notifier).isLoading;
-    final currency = ref.watch(currencyProvider).symbol;
+    final currency = ref.watch(currencyProvider).value?.symbol ?? '₹';
     // final rProvider = isTaxPage
     //     ? ref.read(taxProvider.notifier)
     //     : ref.read(investmentProvider.notifier);
@@ -53,13 +53,13 @@ class ReusableInfo extends ConsumerWidget {
             : isScrollable
                 ? Expanded(
                     child: ReusableListView(
-                      trackerList: trackerList,
+                      filteredExpModel: trackerList,
                       currency: currency,
                       isScrollable: isScrollable,
                     ),
                   )
                 : ReusableListView(
-                    trackerList: trackerList,
+                    filteredExpModel: trackerList,
                     currency: currency,
                     isScrollable: isScrollable,
                   );

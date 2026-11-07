@@ -10,25 +10,25 @@ class DateFilter extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final wProvider = ref.watch(dateProvider);
+    final wProvider = ref.watch(dateProvider).value;
     return Row(
       children: [
         Expanded(
             child: ShowDate(
-          date: wProvider.startDateFilter == wProvider.endDateFilter
+          date: wProvider?.startDateFilter == wProvider?.endDateFilter
               ? "Start Date"
-              : wProvider.startDateFilter!,
-          startDate: wProvider.startDateFilter ?? wProvider.endDateFilter!,
-          endDate: wProvider.endDateFilter ?? "End Date",
+              : wProvider?.startDateFilter?? "Start Date",
+          startDate: wProvider?.startDateFilter ?? wProvider?.endDateFilter ?? "Start Date",
+          endDate: wProvider?.endDateFilter ?? "End Date",
         )),
         spacerW(8),
         Icon(Icons.remove),
         spacerW(8),
         Expanded(
             child: ShowDate(
-          date: wProvider.endDateFilter ?? "End Date",
-          startDate: wProvider.startDateFilter ?? wProvider.endDateFilter!,
-          endDate: wProvider.endDateFilter ?? "End Date",
+          date: wProvider?.endDateFilter ?? "End Date",
+          startDate: wProvider?.startDateFilter ?? wProvider?.endDateFilter ?? "Start Date",
+          endDate: wProvider?.endDateFilter ?? "End Date",
         )),
       ],
     );

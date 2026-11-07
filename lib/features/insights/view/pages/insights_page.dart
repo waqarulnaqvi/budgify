@@ -1,23 +1,26 @@
 import 'package:budgify/core/constants/static_assets.dart';
 import 'package:budgify/shared/view/widgets/currency_picker.dart';
 import 'package:budgify/shared/view/widgets/global_widgets.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:budgify/features/expense_tracker/viewmodel/riverpod/expense_tracker_notifier.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../core/constants/constants.dart';
 import '../../../../core/constants/prefs_keys.dart';
 import '../../../../core/local/prefs_helper.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_gradients.dart';
 import '../../../../core/theme/app_styles.dart';
+import '../../../../shared/view/widgets/ads/banner_ads.dart';
 import '../../../../shared/view/widgets/buttons/reusable_icon_button.dart';
 import '../../../../shared/view/widgets/date_filter.dart';
 import '../../../../shared/view/widgets/reusable_app_bar.dart';
 import '../../../expense_tracker/view/widgets/more_apps_carousel.dart';
 import '../../../expense_tracker/viewmodel/riverpod/currency_provider.dart';
+import '../../data/chart_info.dart';
+import '../../model/chart_model.dart';
 import '../widgets/play_store_rating.dart';
 import 'dart:math';
 
@@ -40,7 +43,9 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
 
   Future<void> initPreference() async {
     prefsHelper = PrefsHelper();
-    isAlreadyRated = await prefsHelper!.getBoolValue(PrefsKeys.alreadyRated);
+    isAlreadyRated =
+        await prefsHelper!.getBoolValue(PrefsKeys.alreadyRated) ?? false;
+    if (!mounted) return; // ✅ VERY IMPORTANT
     setState(() {});
     // print("Already Rated: $isAlreadyRated");
   }
@@ -49,7 +54,7 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
   Widget build(BuildContext context) {
     final expenseData = ref.watch(expenseTrackerProvider);
     var totalBalance = (expenseData.trackerCategory.totalIncome -
-            expenseData.trackerCategory.totalExpense) -
+        expenseData.trackerCategory.totalExpense) -
         expenseData.trackerCategory.tax +
         expenseData.trackerCategory.investment;
 
@@ -68,69 +73,92 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
         ? expenseData.trackerCategory.tax * -1
         : expenseData.trackerCategory.tax;
 
-    final currencySymbol = ref.watch(currencyProvider).symbol;
-    final theme = Theme.of(context).colorScheme;
-    final double w = MediaQuery.of(context).size.width;
+    final currencySymbol = ref
+        .watch(currencyProvider)
+        .value
+        ?.symbol ?? '₹';
+    final theme = Theme
+        .of(context)
+        .colorScheme;
+    final double w = MediaQuery
+        .of(context)
+        .size
+        .width;
+
+    final isShowChart =
+    (expenseData.trackerCategory.investment != 0 ||
+        expenseData.trackerCategory.tax != 0 ||
+        expenseData.trackerCategory.totalIncome != 0 ||
+        expenseData.trackerCategory.totalExpense != 0);
 
     return Scaffold(
       appBar: const ReusableAppBar(text: 'Insights'),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            spacerH(),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
-              child: CurrencyPicker(),
-            ),
-            spacerH(),
-            (expenseData.trackerCategory.investment != 0 ||
-                    expenseData.trackerCategory.tax != 0 ||
-                    expenseData.trackerCategory.totalIncome != 0 ||
-                    expenseData.trackerCategory.totalExpense != 0)
-                ? reportSection(
-                    w: w,
-                    context: context,
-                    currencySymbol: currencySymbol,
-                    totalBalance: totalBalance,
-                    totalIncome: totalIncome,
-                    totalInvestment: totalInvestment,
-                    totalExpense: totalExpense,
-                    totalTax: totalTax,
-                    theme: theme,
-                  )
-                : noDataFoundSection(
-                    w: w,
-                    theme: theme,
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  spacerH(),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    child: CurrencyPicker(),
                   ),
-            moreAppsCarousel(w: w, context: context, theme: theme),
-            if (!isAlreadyRated) playStoreRating(w, theme, prefsHelper),
-            if (!isAlreadyRated) spacerH(25),
-            socialMediaConnections(w, theme),
-            spacerH(80)
-          ],
-        ),
+                  spacerH(),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    child: DateFilter(),
+                  ),
+                  spacerH(),
+                  Offstage(
+                    offstage: !isShowChart,
+                    child: reportSection(
+                      w: w,
+                      context: context,
+                      currencySymbol: currencySymbol,
+                      totalBalance: totalBalance,
+                      totalIncome: totalIncome,
+                      totalInvestment: totalInvestment,
+                      totalExpense: totalExpense,
+                      totalTax: totalTax,
+                      theme: theme,
+                    ),
+                  ),
+
+                  if (!isShowChart)
+                    noDataFoundSection(w: w, theme: theme),
+                  moreAppsCarousel(w: w, context: context, theme: theme),
+                  if (!isAlreadyRated) playStoreRating(w, theme, prefsHelper),
+                  if (!isAlreadyRated) spacerH(25),
+                  socialMediaConnections(w, theme),
+                  spacerH(80)
+                ],
+              ),
+            ),
+          ),
+
+          Positioned(
+              bottom: 0,
+              child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: BannerAdWidget())),
+        ],
       ),
     );
   }
 
   /// Report Section
-  Widget reportSection(
-      {required double w,
-      required BuildContext context,
-      required String currencySymbol,
-      required double totalBalance,
-      required double totalIncome,
-      required double totalInvestment,
-      required double totalExpense,
-      required double totalTax,
-      required ColorScheme theme}) {
+  Widget reportSection({required double w,
+    required BuildContext context,
+    required String currencySymbol,
+    required double totalBalance,
+    required double totalIncome,
+    required double totalInvestment,
+    required double totalExpense,
+    required double totalTax,
+    required ColorScheme theme}) {
     return Column(
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.0),
-          child: DateFilter(),
-        ),
-        spacerH(),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Material(
@@ -150,19 +178,19 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
                     )),
                 legend: Legend(isVisible: true),
                 series: <CircularSeries>[
-                  PieSeries<_ChartData, String>(
+                  PieSeries<ChartData, String>(
                     dataSource: [
-                      _ChartData('$currencySymbol Total Bal', totalBalance),
-                      _ChartData('Invest', totalInvestment),
-                      _ChartData('Tax', totalTax),
-                      _ChartData('Income', totalIncome),
-                      _ChartData('Expense', totalExpense),
+                      ChartData('$currencySymbol Total Bal', totalBalance),
+                      ChartData('Invest', totalInvestment),
+                      ChartData('Tax', totalTax),
+                      ChartData('Income', totalIncome),
+                      ChartData('Expense', totalExpense),
                     ],
-                    xValueMapper: (_ChartData data, _) => data.category,
-                    yValueMapper: (_ChartData data, _) => data.amount,
-                    pointColorMapper: (_ChartData data, _) {
+                    xValueMapper: (ChartData data, _) => data.category,
+                    yValueMapper: (ChartData data, _) => data.amount,
+                    pointColorMapper: (ChartData data, _) {
                       if (data.category.contains('Total Bal')) {
-                        return AppColors.themeLight;
+                        return AppColors.primary;
                       } else if (data.category == 'Income') {
                         return AppColors.lightGreen;
                       } else if (data.category == 'Expense') {
@@ -193,7 +221,7 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
           child: Card(
             elevation: 4,
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             child: Container(
               width: w,
               padding: const EdgeInsets.all(15),
@@ -214,17 +242,17 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
                       ),
                     ),
                     series: [
-                      SplineSeries<_ChartData, String>(
-                        // LineSeries<_ChartData, String>(
+                      SplineSeries<ChartData, String>(
+                        // LineSeries<ChartData, String>(
                         dataSource: [
-                          _ChartData('Income', totalIncome),
-                          _ChartData('Invest', totalInvestment),
-                          _ChartData('Expense', totalExpense),
-                          _ChartData('Tax', totalTax),
-                          _ChartData('Total Bal', totalBalance),
+                          ChartData('Income', totalIncome),
+                          ChartData('Invest', totalInvestment),
+                          ChartData('Expense', totalExpense),
+                          ChartData('Tax', totalTax),
+                          ChartData('Total Bal', totalBalance),
                         ],
-                        xValueMapper: (_ChartData data, _) => data.category,
-                        yValueMapper: (_ChartData data, _) => data.amount,
+                        xValueMapper: (ChartData data, _) => data.category,
+                        yValueMapper: (ChartData data, _) => data.amount,
                         color: Colors.blue,
                         name: 'Income/Expense/Investment/Tax/Balance',
                       ),
@@ -237,12 +265,12 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
                     child: BarChart(
                       BarChartData(
                         maxY: [
-                              totalTax,
-                              totalIncome,
-                              totalInvestment,
-                              totalExpense,
-                              totalBalance
-                            ].map((e) => e < 0 ? -e : e).reduce(max) +
+                          totalTax,
+                          totalIncome,
+                          totalInvestment,
+                          totalExpense,
+                          totalBalance
+                        ].map((e) => e < 0 ? -e : e).reduce(max) +
                             500,
                         titlesData: FlTitlesData(show: true),
                         borderData: FlBorderData(show: true),
@@ -432,7 +460,7 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
                 ),
                 spacerH(15),
                 PlatyStoreRating(
-                  url: Constants.budgetFlowUrl,
+                  url: AppConstants.budgetFlowUrl,
                 ),
                 spacerH(15),
                 InkWell(
@@ -503,9 +531,9 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
                         Expanded(
                           child: ReusableIconButton(
                             title: 'Youtube',
-                            icon: FontAwesomeIcons.youtube,
+                            faIconData: FontAwesomeIcons.youtube,
                             colors: AppGradients.youtubeGradient,
-                            url: Constants.youtubeLink,
+                            url: AppConstants.youtubeLink,
                             spacerWidth: 15,
                           ),
                         ),
@@ -515,9 +543,9 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
                         Expanded(
                           child: ReusableIconButton(
                             title: 'Instagram',
-                            icon: FontAwesomeIcons.instagram,
+                            faIconData: FontAwesomeIcons.instagram,
                             colors: AppGradients.instagramGradient,
-                            url: Constants.instagramLink,
+                            url: AppConstants.instagramLink,
                           ),
                         ),
                       ],
@@ -532,9 +560,9 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
                         Expanded(
                           child: ReusableIconButton(
                             title: 'Facebook',
-                            icon: FontAwesomeIcons.facebook,
+                            faIconData: FontAwesomeIcons.facebook,
                             colors: AppGradients.facebookGradient,
-                            url: Constants.facebookLink,
+                            url: AppConstants.facebookLink,
                           ),
                         ),
                         SizedBox(
@@ -543,9 +571,9 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
                         Expanded(
                           child: ReusableIconButton(
                             title: 'WhatsApp',
-                            icon: FontAwesomeIcons.whatsapp,
+                            faIconData: FontAwesomeIcons.whatsapp,
                             colors: AppGradients.greenGradient,
-                            url: Constants.whatsAppChannelLink,
+                            url: AppConstants.whatsAppChannelLink,
                             socialIconSize: 28,
                           ),
                         ),
@@ -560,27 +588,5 @@ class _InsightsPageState extends ConsumerState<InsightsPage> {
   }
 }
 
-class _ChartData {
-  _ChartData(this.category, this.amount);
 
-  final String category;
-  final double amount;
-}
 
-class CharInfo {
-  final String title;
-  final Color color;
-
-  CharInfo({
-    required this.title,
-    required this.color,
-  });
-}
-
-List<CharInfo> chartInfo = [
-  CharInfo(title: "Income", color: Colors.greenAccent),
-  CharInfo(title: "Investment", color: Colors.green),
-  CharInfo(title: "Expense", color: Colors.red),
-  CharInfo(title: "Tax", color: Colors.orange),
-  CharInfo(title: "Total Balance", color: Colors.blue),
-];

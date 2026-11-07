@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../../core/theme/app_styles.dart';
 
 class DrawerTile extends StatefulWidget {
-  final IconData icon;
+  final IconData? icon;
   final String title;
+  final FaIconData? faIcon;
   final VoidCallback onTap;
 
   const DrawerTile(
-      {required this.icon,
+      { this.icon,
       required this.title,
       required this.onTap,
+        this.faIcon,
       super.key});
 
   @override
@@ -48,10 +51,18 @@ class _DrawerTileState extends State<DrawerTile> {
             padding: const EdgeInsets.all(20),
             child: Row(
               children: [
+                if(widget.icon!=null)
                 Icon(
                   widget.icon,
                   color: isTap ? Colors.white : Colors.black,
                 ),
+
+                if(widget.faIcon != null)
+                FaIcon(
+                  widget.faIcon,
+                  color: isTap ? Colors.white : Colors.black,
+                ),
+
                 const SizedBox(width: 15),
                 Flexible(
                   child: FittedBox(

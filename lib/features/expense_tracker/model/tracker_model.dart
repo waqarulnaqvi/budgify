@@ -1,5 +1,21 @@
 import 'package:budgify/core/local/db_helper.dart';
 
+class FilteredExpModel{
+  final String? title;
+  final num bal;
+  final String? image;
+  final List<TrackerModel> allExp;
+
+  FilteredExpModel({
+    this.image,
+    required this.title,
+    required this.bal,
+    required this.allExp,
+  });
+}
+
+
+
 class TrackerModel {
   int? id;
   String title;

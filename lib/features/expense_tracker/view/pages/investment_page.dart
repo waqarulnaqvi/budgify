@@ -25,7 +25,7 @@ class InvestmentPage extends ConsumerWidget {
                 spacerH(10),
                 ReusableCardWidget(
                   isTaxPage: false,
-                  icon: FontAwesomeIcons.sackDollar,
+                  faIcon: FontAwesomeIcons.sackDollar,
                   section1: CardModel(
                       name: "Current Amount",
                       value: investmentModel.currentAmount),
@@ -63,7 +63,7 @@ class InvestmentPage extends ConsumerWidget {
                       trackerCategory: ExpenseType.investment.intValue,
                       percentage: 0));
             },
-            icon: FontAwesomeIcons.sackDollar,
+            faIcon: FontAwesomeIcons.sackDollar,
             colors: AppGradients.skyBlueGradient));
   }
 

@@ -1,11 +1,15 @@
-class StaticAssets {
-  //Images
-
-
+abstract final class StaticAssets {
   // Icons
   static const String userProfile ="assets/icons/profile.png";
   static const String crossCloseIcon = 'assets/icons/cross_close_icon.png';
   static const String budgetFlowHomeIcon = 'assets/icons/budget_flow_home_icon.png';
+  static const String calenderIcon = 'assets/icons/calendar_icon.png';
+
+  //On boarding
+  static const String onboard1= 'assets/images/onboard/onboard1.png';
+  static const String onboard2= 'assets/images/onboard/onboard2.png';
+  static const String onboard3= 'assets/images/onboard/onboard3.png';
+  static const String onboard4= 'assets/images/onboard/onboard4.png';
 
   //All apps Icons
   static const String brainBoosterIcon =
@@ -21,6 +25,9 @@ class StaticAssets {
   static const String budgetFlowIcon =
       'assets/icons/my_app_icons/budget_flow_icon.png';
 
+  //Theme Icons
+  static const String lightTheme = "assets/icons/light_theme.png";
+  static const String darkTheme = "assets/icons/dark_icon.png";
 
   //Images
   static const String noDataFoundImage = 'assets/images/no_data_found_image.png';
